@@ -15,4 +15,4 @@ $ ./hello
 
 ```
 The `-DCMAKE_BUILD_TYPE=Debug` is optional if you want to generate the debug version with the debug symbols.
-
+You can also use CMake option `--debug-output`

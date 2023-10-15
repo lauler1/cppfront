@@ -6,7 +6,7 @@
 This is a simple repository for Cppfront study
 
 It has two main folders:
- - cppfront/ The cppfront tool from [github cppfront](https://github.com/hsutter/cppfront). Follow the instructions there.
+ - cppfront/ The cppfront tool submodule from [github cppfront](https://github.com/hsutter/cppfront). Follow the instructions there.
  - proj/ A set of example projects in individual sub-folders. Each sub-folder contains a readme.md.
 
 The `init.sh` is used to create the alias to call cppfront from any individual sub-folder. Run init.sh in any new terminal session before using cppfront.

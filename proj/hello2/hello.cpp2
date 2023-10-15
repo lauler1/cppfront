@@ -1,0 +1,6 @@
+#include <stdio.h>
+
+main: (args) = {
+	mytext: std::string = "my text.";
+	std::cout <<  "This exe is (args[0])$, (mytext)$";
+}

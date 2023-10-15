@@ -17,9 +17,9 @@ For debugging it is necessary to use `-fuse-line-directives` and `-g`. Option `-
 ## g++
 
 ```bash
-g++ -I../../cppfront/include/ -std=c++20 hello.cpp -o hello
+g++ -I$CPPFRONTDIR/include/ -std=c++20 hello.cpp -o hello
 or
-g++ -O0 -g -I../../cppfront/include/ -std=c++20 hello.cpp -o hello
+g++ -O0 -g -I$CPPFRONTDIR/include/ -std=c++20 hello.cpp -o hello
 ```
 
 gdb will point to cpp2 file automatically, no special diretive is needed, except the `-g`.

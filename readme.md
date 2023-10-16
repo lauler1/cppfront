@@ -12,7 +12,7 @@ It has two main folders:
 
 The `init.sh` is used to create the alias to call cppfront from any individual sub-folder. Run init.sh in any new terminal session before using cppfront.
 
-````bash
+```bash
 $ source ./init.sh
 or
 $ . ./init.sh

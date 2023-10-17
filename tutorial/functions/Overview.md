@@ -1,1 +1,1 @@
-# Overview of the Chapter: FunctionsBack to [home](../readme.md)## Content* Declaration and definition* in, out, inout: parameters* lambdas* Scope and Lifetime## Brief Description
+# Overview of the Chapter: FunctionsBack to [home](../readme.md)## Content* [Declaration and definition](Declaration.md)* [in, out, inout: parameters](parameters.md)* [lambdas](lambdas.md)* [Scope and Lifetime](Scope_Lifetime.md)## Brief Description

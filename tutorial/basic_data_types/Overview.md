@@ -1,0 +1,1 @@
+# Overview of the Chapter: Basic Data TypesBack to [home](../readme.md)## Content* The basic types	* boolean		* char	* int, long	* float double	* void* Variables definition, declaration and initialization* Operators	* Assign	* Arithmetic	* Compound OperatorsI	* Increment Decrement* Automatic type (auto)* Strings in Cppfront## Brief Description

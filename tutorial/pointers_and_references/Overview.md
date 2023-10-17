@@ -1,0 +1,1 @@
+# Overview of the Chapter: Pointers and referencesBack to [home](../readme.md)## Content* memory safety	* new as unique_ptr* (RAII “Resource Acquisition Is Initialization”) using a class to force automatic destruction of FILE*	* file, locks, sockets, shaders* Pointer to strings* Conversions (implicit explicit)## Brief Description

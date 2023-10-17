@@ -11,7 +11,7 @@ The main reference for this tutorial is the [**GitHub repository of Cppfront**](
 
 This is the preliminary content table, it may change.
 
-* [**Basics**](basics/Overview.md)
+* [**Crafting Your First Cppfront Program**](basics/Overview.md)
 	* Introduction to Cppfront Language
 	* Installation and how to compile
 	* Key features of Cppfront language
@@ -59,7 +59,7 @@ This is the preliminary content table, it may change.
 	* CMake
 	* #include "cpp2util.h"
 
-# Preface
+## Preface
 
 **Preface: The Future of C++ - An Introduction to Cppfront**
 
@@ -101,100 +101,58 @@ This tutorial seeks to usher you into the world of Cppfront, using the language'
 Welcome to the future of C++. Welcome to Cppfront.
 
 
-# Old list of topics
-
-The concern about the need for a C++ sucessor has rised recently. The overarching software community across the private sector, academia, and the U.S. Government have begun initiatives to drive the culture of software development towards utilizing memory safe languages.
-NSA advises organizations to consider making a strategic shift from programming languages that provide little or no inherent memory protection, such as C/C++, to a memory safe language when possible. Some examples of memory safe languages are C#, Go, Java, Ruby™, and Swift
-
-There is a real, serious problem for many uses and users
-• Bugs and security violations from bad code in various language (incl. C++) and other causes
-• Diversion of resources from C++ to other languages
-• Discouraging people from learning C++
-• Massive improvements are possible in many areas
-• C++ has a massive image problem (“C/C++”)
-• And it is getting worse
-• Governments and large corporations can coerce developers
-• Ignoring the safety issues now would hurt large sections of the C++ community and undermine much of the other work we are doing to improve C++.
-• So would focusing exclusively on safety
-• Offering guaranteed safety will be in the best tradition of C++
-
-Constraints on a solution
-• C++ must serve wide variety of users/areas
-• One size doesn’t fit all
-• C++ is (also) a systems programming language – we can’t “outsource” dangerous operations to some other language
-• We can’t just break billions of lines of existing code
-• Even if we wanted to – major users would insist on compatibility (probably compatibility by default)
-• We can change the use of C++
-• We can’t just “upgrade” millions of developers
-• And teaching material, courses, videos, books, articles
-• If you want a shiny new language, please go ahead
-• But it won’t be C++ or the job of WG2
-
-Challenges
-• Describe a type-safe C++ use
-• No violations of the static type system
-• No resource leaks
-• Convince developers to use that safe (or just safer) styles of use
-• Except where it is not appropriate
-• Direct use of system and hardware resources
-• Need for ultimate efficiency
-• Implementation of code that cannot be proven safe (e.g., some linked structures)
-• Get this to work at scale
-• Not just “academic” examples
-• Note: there is lots of great C++ “out there”
-• For any definition of “great” including “reliable over decades”
-
-Safety is not just type safety
-• Logic errors: perfectly legal constructs that don’t reflect the programmer’s intent, such as using < where a <= or a > was intended.
-• Resource leaks: failing to delete resources (e.g., memory, file handles, and locks) potentially leading to the program grinding to a halt because of lack of available resources.
-• Concurrency errors: failing to correctly take current activities into account leading to (typically) obscure problems (such as data races and deadlocks).
-• Memory corruption: for example, through the result of a range error or by accessing and memory through a pointer to an object that no longer exists thereby changing a different object.
-• Type errors: for example, using the result of an inappropriate cast or accessing a union through a member different from the one through which it was written.
-• Overflows and unanticipated conversions: For example, an unanticipated wraparound of an unsigned integer loop variable or a narrowing conversion.
-• Timing errors: for example, delivering a result in 1.2ms to a device supposedly responding to an external event in 1ms.
-• Allocation unpredictability: for example, ban on free store allocation “after the engine starts.”
-• Termination errors: a library that terminates in case of “unanticipated conditions” being part of a 
-program that is not allowed to unconditionally terminate.
-
-Thhere are basically 3 deiiferent approaches to evolve a language:
- Incremental evolution (Default aproach for most languages): This is how C++ evolves today.
- Incompatible new language (complete new language): This is the “Dart plan”.
- Compatible by design: This is the “TypeScript plan”, The source is transpiled from the new language to the existing one.
-
-Some proposal as C++ sucessor are:
- - Carbon Project from Google (which is new language and toolos)
- - Verona project from Microsoft (which isnew language and tools)
- - CppFront from Herb Sutter (which is a new syntax to C++, transpiled in a similar way as TypeScript is for Javascript)
- - Also Circle compiler (by changing the c++ compiler as a new proposal)
-
-The Incremental aproach is the default and usually the one with best compatibility. But after decades of evolution, it may become difficult to keep compatibility or the language may become to complex with to many flavors/options of code. The syntax may become to ugly.
-
-Usualy, creating a new incompatible language with a complete new set of tools and libraries take some time till it get momentum by developers, I mean, regular developers not only the entusiasts. Usualy it takes a decade.
-The main advantage of having a complete new language is the complete freedom to do everything without being blocked by the compatibility with the past. One disadvantage is that it is more dificult to keep compatibility, specially in companies that have a long history of code already written in other languages.  Interoperability can be done via wrapping And the developers need to learn everything from zero. Example of time dalais that happened in other projects:
-MSVC 6 ~12 years
-	Shipped in 1998
-	“10 is the new 6” fanfare in 2010
-C99 _Complex and VLAs ~12 years
-	Added in 1999
-	Walked them back to “optional” in 2011
-C++11 std::string ~11 years
-	Banned RC for std::string in 2008/2010
-	Major Linux distro enabled it in 2019
-Python 3 ~12 years
-	Shipped 3.0 in 2008
-	10% still using 2.x as of early 2020
-
-The best examples of Compatible by design is the Typescript and Swift. It can cooperate and participate with 
-Lang continued evolution. It can contribute evolution proposals to Lang evolution.
-
-Cppfront is an experimental compiler from a potential C++ 'syntax 2' (Cpp2) to today's 'syntax 1' (Cpp1). It proposes to follow the compatible by design approach.
-Cppfront has being developed by Herb Sutter for a while.
-It has received support of peaple in the community (entusiasts).
-This tutorial intends to teach Cppfront.
-It is public in the internet.
-It is not yet ready for production.
-The main reference for this tutorial is the GitHub repository of Cppfront.
-Cppfront aims total compatibility with modern C++ (e.g. C++20) allowing the reuse of all the existing tools, libraries and acosystems.
+## Chapter Descriptions of the Cppfront Tutorial
 
 
+**1. [Crafting Your First Cppfront Program](basics/Overview.md)**
+   Begin your Cppfront journey by understanding its foundational aspects, setting up the environment, and crafting your initial program. Also, dive deep into a comparative study of Cppfront vs. Rust.
+
+---
+
+**2. [Basic Data Types](basic_data_types/Overview.md)**
+   Navigate through the core data types in Cppfront. Understand variables, their definitions, declarations, and initialization. Learn about the power of operators, the convenience of the 'auto' type, and explore the dynamic world of strings.
+
+---
+
+**3. [Containers (collections)](containers/Overview.md)**
+   Delve into Cppfront’s robust collection mechanisms. Explore arrays and matrices, the flexibility of vectors, and the structured world of tuples.
+
+---
+
+**4. [Control Statements](control_statements/Overview.md)**
+   Understand the backbone of programmatic logic. This chapter introduces you to control statements, guiding you through selection mechanisms and repetitive constructs.
+
+---
+
+**5. [Pointers and references](pointers_and_references/Overview.md)**
+   Dive into the nuances of memory in Cppfront. Understand memory safety, leverage the RAII principle for resource management, and explore pointers, references, and their conversions.
+
+---
+
+**6. [Functions](functions/Overview.md)**
+   Unravel the world of functions in Cppfront. Learn how to declare and define functions, understand parameter passing mechanisms like in, out, and inout, and explore the elegance of lambdas. Additionally, grasp the intricacies of scope and lifetime.
+
+---
+
+**7. [User defined types](user_defined_types/Overview.md)**
+   Customize Cppfront to your needs. Explore the innovative "@xxxx type" syntax, dive into Object-Oriented Programming, and understand the mechanics of constructors, destructors, copy, and move operations.
+
+---
+
+**8. [Generics](generics/Overview.md)**
+   Leverage the power of templating in Cppfront. This chapter delves into the world of generics, offering a structured way to create flexible and reusable code constructs.
+
+---
+
+**9. [Advanced topics](advanced_topics/Overview.md)**
+   Push the boundaries of your Cppfront knowledge. Dive into advanced features like modules, which replace traditional includes, explore recursion, understand threading with atomic operations, and tap into networking.
+
+---
+
+**10. [Appendix](appendix/Overview.md)**
+   A treasure trove of additional resources. Whether you're looking to debug effectively, integrate with CMake, or leverage utilities like "cpp2util.h", this section has you covered.
+
+---
+
+Embark on this comprehensive journey with Cppfront, and by the end of this tutorial, you'll be proficiently navigating its diverse and powerful features. Happy coding!
 

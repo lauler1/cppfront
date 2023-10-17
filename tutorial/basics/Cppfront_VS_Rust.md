@@ -1,4 +1,4 @@
-# Cppfront VS Rust
+# Cppfront vs. Rust - A Comparative Study
 
 
 Back to Tutorial [home](../readme.md)
@@ -21,3 +21,6 @@ Shows how is done now
 Cover other advanced modern C++ topics (e.g. C++ 17, 20, 23) because the idea is to teach how to write code right.
 If cppfront does not have a specific syntax, then use modern C++.
 
+---
+
+Gain insights into how cppfront measures up against Rust. This comparative analysis will shed light on the strengths, weaknesses, and unique attributes of both languages, enabling you to make informed decisions based on project requirements.

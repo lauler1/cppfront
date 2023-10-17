@@ -1,4 +1,4 @@
-# First Program
+# Crafting Your First Cppfront Program
 
 
 Back to Tutorial [home](../readme.md)
@@ -21,3 +21,11 @@ Shows how is done now
 Cover other advanced modern C++ topics (e.g. C++ 17, 20, 23) because the idea is to teach how to write code right.
 If cppfront does not have a specific syntax, then use modern C++.
 
+---
+
+Witness the culmination of your learning as we guide you in crafting your first cppfront application. This section will cover:
+   - Introduction to the "main:" function.
+   - Navigating program "args" and their utility.
+   - The convenience of "std::cout" with format specifications.
+   - Delve into the "std" library, which is inherently included in cppfront.
+   - Decoding the Generated C++: One of the essential skills when working with cppfront is understanding the C++ output it produces. We'll help you become proficient in analyzing the generated C++ code, emphasizing its importance for deeper mastery of the language.

@@ -28,4 +28,15 @@ Discover the essence of cppfront through its salient features. This section emph
    - Bridging with C++ Syntax: Learn how to seamlessly use C++ syntax within cppfront, ensuring a smoother transition and enhanced compatibility.
    - Preprocessors in Action: Understand the significance of '#' for macros and delve into the intricacies of "include" functionalities.
    - Beyond the Basics: While this tutorial focuses on the fundamentals, it's imperative to note that anything from C++ not explicitly covered here can be integrated into cppfront. This feature accentuates the language's versatility.
-   
+  
+
+## Next
+
+To the [next Chapter](Cppfront_VS_Rust.md). {style=text-align:center}
+
+To the [previous Chapter](Installation_and_compilation.md).
+
+Back to Tutorial [home](../readme.md)
+
+Back to the Chapter [Overview](Overview.md)
+

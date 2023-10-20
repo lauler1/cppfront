@@ -5,19 +5,6 @@ Back to Tutorial [home](../readme.md)
 
 Back to the Chapter [Overview](Overview.md)
 
-
-<details>
-
-  <summary>Click to expand</summary>
-  
-  This is the hidden content that can be expanded or collapsed by clicking the summary above. You can include Markdown content here.
-
-  - Item 1
-  - Item 2
-  - Item 3
-  
-</details>
-
 ## Background C and C++
 
 How it is done in C and C++ 98 and modern C++
@@ -45,9 +32,9 @@ Witness the culmination of your learning as we guide you in crafting your first 
 
 ## Next
 
-To the [next Chapter](../basic_data_types/Overview.md). {style=text-align:center}
+To the [next Chapter](Key_features.md). {style=text-align:center}
 
-To the [previous Chapter](Cppfront_VS_Rust.md).
+To the [previous Chapter](Installation_and_compilation.md).
 
 Back to Tutorial [home](../readme.md)
 

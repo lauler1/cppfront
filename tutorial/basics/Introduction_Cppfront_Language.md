@@ -13,11 +13,15 @@ It's evident that Cppfront, an outcome of these evolutionary efforts, holds imme
 
 For those interested in its progression, Herb Sutter's GitHub repository offers a transparent view of Cppfront's ongoing development, milestones, and roadmap. It's crucial to be aware that while many features have been introduced, some are still in the pipeline, and existing ones might undergo refinements.
 
-This tutorial is crafted to fill the educational void for Cppfront. As the language advances, so will this guide. The primary objective is to elucidate C++'s vital concepts, as reflected in Cppfront's syntax. Where Cppfront hasn't introduced a distinct syntax, we'll resort to modern C++ conventions. Rest assured, with every fresh Cppfront feature, this tutorial will be duly updated.
+This tutorial is crafted to fill the educational void for Cppfront. ==As the language grows, this tutorial will too.== The primary objective is to elucidate C++'s vital concepts, as reflected in Cppfront's syntax. ==If Cppfront doesn't have a unique style, we'll use modern C++ methods. Whenever Cppfront gets new features, we'll update this guide.==
 
 It's worth highlighting that Cppfront thrives on modern C++ principles and mandates compilation using the C++20 option.
 
 To all budding Cppfront enthusiasts, this tutorial is your compass. Embark on this journey to gain insights into Cppfront's origins, its objectives, and its esteemed place in the dynamic world of programming languages. Let's explore together!
+
+### Cppfront and Cpp2
+
+Throughout this tutorial, you might encounter the term **Cpp2** used interchangeably with **Cppfront**. While Cppfront denotes the entire initiative, encompassing its compiler, Cpp2 is the novel syntax introduced by Cppfront, also known as syntax2. It is typically contrasted with the traditional C++ syntax, labeled as Cpp1. Throughout this tutorial, both terms might be employed to discuss the syntactical elements of the experiment. Notably, files using the Cpp2 syntax bear the `.cpp2` extension.
 
 ## **Reimagining C++ with Cppfront**
 
@@ -66,13 +70,13 @@ The idea here is simple: What if we could advance C++ while ensuring backwards c
 - Make C++ guidelines and modules the default.
 - Retain the robust C++ ecosystem and compatibility.
 
-## Tutorial Design and Potential Impact:
+## Tutorial Design and Potential Impact
 
 The tutorial's structure embodies a holistic educational philosophy. Ranging from fundamental to intricate subjects, it delves deep into both core programming principles and cppfront's unique attributes. By drawing parallels between cppfront and traditional C++ concepts, the tutorial may facilitate a swift adoption process. This method could prove instrumental, particularly for developers aiming to bridge their established C++ expertise with the emerging cppfront paradigm.
 
 ## Next
 
-To the [Next](Installation_and_compilation.md) Chapter. {style=text-align:center}
+To the [Next](Cppfront_VS_Rust.md) Chapter. {style=text-align:center}
 
 Back to Tutorial [home](../readme.md)
 

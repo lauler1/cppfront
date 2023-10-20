@@ -72,7 +72,7 @@ C++ offers robust concurrency and parallelism support, especially since the C++1
 
 **Rust:** Rust's ownership and borrowing system plays a significant role in making concurrent programming more accessible and safer, preventing data races by design.
 
-## **7. Network and Web Programming
+## **7. Network and Web Programming:**
 
 C++ has been traditionally used for network programming, especially in high-performance server applications. Libraries like Boost.Asio have facilitated asynchronous I/O operations. However, web development in C++ is less common, as it lacks a standardized, user-friendly ecosystem compared to languages like JavaScript or Python.
 
@@ -116,9 +116,9 @@ Cppfront and Rust, while addressing some overlapping challenges, come from diffe
 
 ## Next
 
-To the [next Chapter](First_Program.md). {style=text-align:center}
+To the [next Chapter](Installation_and_compilation.md). {style=text-align:center}
 
-To the [previous Chapter](Key_features.md).
+To the [previous Chapter](Introduction_Cppfront_Language.md).
 
 Back to Tutorial [home](../readme.md)
 

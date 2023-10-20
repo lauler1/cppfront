@@ -59,6 +59,18 @@ This is the preliminary content table, it may change.
 	* CMake
 	* #include "cpp2util.h"
 
+## Audience
+
+This tutorial is designed for individuals who have some programming experience, whether in C++ or other languages. A basic understanding of concepts such as variables, functions, commands, operations, arrays, and structures is beneficial. Familiarity with object-oriented programming (OOP) or generics (templates) would be a plus, but there's no requirement for expertise in modern C++ or advanced programming techniques.
+
+## About the Author
+
+I'm a programmer who has invested significant time working with C and earlier versions of C++. My academic path led me to earn a degree in Electrical Engineering, and I further deepened my knowledge with a doctorate (D.Sc.) from the Brazilian Aeronautics Technological Institute (ITA). While I have a genuine appreciation for the intricacies of the C++ language, my experiences with its earlier forms have always been tinged with caution, given its susceptibility to errors and potential vulnerabilities.
+
+Transitioning to the more recent versions of C++ (from C++ 11 onwards) was a bit jarring for me. The evolving syntax seemed to stray from the elegance and straightforwardness I admired, becoming more complex and, at times, less intuitive. Such intricacies might be why numerous developers prefer the familiar territory of a blended syntax of C and older C++ versions. The challenges inherent in these shifts probably contribute to the push for creating new, more efficient languages as alternatives to C++.
+
+When I first stumbled upon Cppfront, my interest was immediately piqued. Eager to understand more, I immersed myself in any information available online and became an ardent supporter of this innovative initiative.
+
 ## Preface
 
 **Preface: The Future of C++ - An Introduction to Cppfront**
@@ -84,9 +96,9 @@ Three prominent strategies are in consideration:
 
 1. **Incremental Evolution:** The path C++ has traditionally followed.
 2. **Incompatible New Language:** A complete overhaul, akin to the “Dart plan.”
-3. **Compatible by Design:** A strategy reminiscent of the “TypeScript plan,” where the source transpiles from the new language to the existing one.
+3. **Compatible by Design:** A strategy reminiscent of the “TypeScript plan,” where the source *transpiles* [^1] from the new language to the existing one.
 
-Several successors to C++ have been proposed, with the likes of Google's Carbon Project and Microsoft's Verona Project, both offering new languages and tools. There's also the Circle compiler. And then, there's **Cppfront** by Herb Sutter, which introduces a new syntax to C++ and transpiles it similarly to how TypeScript operates for Javascript.
+Several successors to C++ have been proposed, with the likes of Google's Carbon Project and Microsoft's Verona Project, both offering new languages and tools. There's also the Circle compiler. And then, there's **Cppfront** experiment by Herb Sutter, which introduces a new syntax to C++ (aka syntax 2 or Cpp2) and transpiles it similarly to how TypeScript operates for Javascript.
 
 Incremental evolution, though reliable, may render the language cumbersome and overcomplicated with time. A brand new, incompatible language, while liberating in design, could suffer from a slow adoption rate among developers, with interoperability achieved only through wrappers. History provides evidence of such time lags, whether it's the MSVC 6, C99 Complex and VLAs, C++11 std::string, or Python 3.
 
@@ -100,6 +112,7 @@ This tutorial seeks to usher you into the world of Cppfront, using the language'
 
 Welcome to the future of C++. Welcome to Cppfront.
 
+[^1]: Transpiling refers to the process of converting source code from one language to another of a comparable abstraction level. Transpilers can also be called source-to-source compilers.
 
 ## Chapter Descriptions of the Cppfront Tutorial
 

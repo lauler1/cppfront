@@ -1,0 +1,70 @@
+Point: type = {
+	public x: int = 2;
+    y: int = 3;
+
+    operator=: (out this, in _x, in _y) = {
+        x=_x; y=_y;
+        // use default initializer for this.more
+        std::cout << "Point: my contructor (x)$ (y)$\n";
+
+    }
+
+    operator=: (out this) = {
+         // use default initializer for this.more
+        std::cout << "Point: my def contructor\n";
+
+    }
+    operator=: (inout this, move that) = {
+         // use default initializer for this.more
+        std::cout << "Point: my move assign\n";
+
+    }
+
+    operator=: (out this, move that) = {
+         // use default initializer for this.more
+        std::cout << "Point: my move constructor\n";
+
+    }
+
+    operator=: (move this) = {
+        std::cout << "Point: destructor (x)$ (y)$\n";
+    }
+	
+	//Point: (in _x, in _y) = {x=_x; y=_y;}
+
+    myfunc: (this, in myparam:) -> int = {
+        return this.x * this.y + myparam;
+    }
+/*
+    operator==: (this, that) -> bool;
+    operator=: (inout this, who: string) = {who = "string";}
+    operator=: (inout this, who: int) = {who = "int";}
+    operator*: (inout this, who: int) = {who = "int";}
+    //operator==: (out this,  that ) = {//return true;
+    //}
+    //bool operator==(out this: Point&, in that: Point) -> bool = { retun true;};
+*/
+}
+
+main: () ={
+	pt1:= Point();
+	pt2:= Point(1,2);
+	
+	std::cout << pt1.myfunc(0) << "\n";
+	std::cout << pt2.myfunc(0) << "\n";
+
+	pt3: Point;
+	pt3 = (move pt1);
+	pt1.x = 10;
+	std::cout << pt1.myfunc(0) << "\n";
+	std::cout << pt3.myfunc(0) << "\n";
+	
+/*	
+    [[assert: !(pt1 == pt2)]]
+    [[assert:   pt1 != pt2 ]]
+    [[assert:   pt1 <  pt2 ]]
+    [[assert:   pt1 <= pt2 ]]
+    [[assert: !(pt1 >  pt2)]]
+    [[assert: !(pt1 >= pt2)]]*/
+}
+

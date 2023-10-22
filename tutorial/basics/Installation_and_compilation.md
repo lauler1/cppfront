@@ -28,6 +28,8 @@ If cppfront does not have a specific syntax, then use modern C++.
 
 Use [Cppfront Code Explorer](https://godbolt.org/z/7qGso819c) to play with the syntax
 
+Visual Studio setup, see https://github.com/hsutter/cppfront/wiki/Cpp2-setup%3A-Visual-Studio
+
 
 Dive into the technicalities of setting up cppfront. This segment will guide you through the installation process, demonstrate how to effectively compile the tool, and acquaint you with its primary features. We'll make sure you're well-versed with the various options available to maximize the tool's utility.
 

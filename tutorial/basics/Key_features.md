@@ -182,17 +182,13 @@ Cppfront has introduced a set of primitive types derived from the C++ language's
 
 Declare intent directly:
 
-+-------------------------+----------------------------+
-| f: ( in x: **X** )      | an X I can read from.      |
-+-------------------------+----------------------------+
-| f: ( inout x: **X** )   | an X I can read and write. |
-+-------------------------+----------------------------+
-| f: ( out x: **X** )     | an X I will assign to.     |
-+-------------------------+----------------------------+
-| f: ( move x: **X** )    | an X I will move from.     |
-+-------------------------+----------------------------+
-| f: ( forward x: **X** ) | an X I will pass along.    |
-+-------------------------+----------------------------+
+|                         |                            |
+| ----------------------- | -------------------------- |
+| f: ( in x: **X** )      | an x I can read from.      |
+| f: ( inout x: **X** )   | an x I can read and write. |
+| f: ( out x: **X** )     | an x I will assign to.     |
+| f: ( move x: **X** )    | an x I will move from.     |
+| f: ( forward x: **X** ) | an x I will pass along.    |
 
 Where **X** is the type or `_`. See examples below:
 
@@ -210,11 +206,106 @@ f5: ( forward x: ) = {}
 C++17 introduced the [[nodiscard]] attribute. Applying this attribute to a function signals that its return value shouldn't be overlooked, prompting the compiler to issue a warning. This can aid in averting security, memory leak, and performance-related bugs. While using this attribute consistently can be inconvenient, Cppfront makes [[nodiscard]] the default behavior, eliminating the need for explicit annotations.
 
 
-### <=>
+### `this` is explicit and not a pointer
 
+In Cppfront, the `this` parameter is (optionally) visible and not a not magic. This is famiuliar to Python programmers. The following example
+
+Cppfront:
+```c++
+Point2: @value type = {
+	x: int = 1;
+    y: int = 1;
+
+    myfunc: (this, in myparam:) -> int = {
+        return this.x * this.y;
+    }
+};
+
+
+```
+
+will results:
+
+C++:
+```c++
+class Point2 {
+	private: int x {1}; 
+    private: int y {1}; 
+
+    public: [[nodiscard]] auto myfunc(auto const& myparam) const& -> int;
+}
+
+[[nodiscard]] auto Point2::myfunc(auto const& myparam) const& -> int{
+	return (*this).x * (*this).y; 
+}
+```
+
+### `that` parameter
+
+> TODO
+
+### `<=>` three-way comparison ("spaceship")
+
+> TODO
+
+
+Directly express comparison intent, eliminate boilerplate & errors See P0515. This operator was introduced to c++20 standard. It is not used directly to compare but to generate the comparison object for all `==, !=, <, >, <=, >=` cases.
+
+The primary motivation behind this operator is to simplify the process of writing comparison functions. Instead of writing separate ==, <, <=, >, and >= operators, you can just write a single <=> operator, and the compiler can derive the others (assuming you also declare them as defaulted).
+
+Cppfront:
+```c++
+struct Point {
+	int x, y;
+	bool operator<=>(const Point&) const = default;
+};
+
+main: () ={
+    [[assert: !(pt1 == pt2)]]
+    [[assert:   pt1 != pt2 ]]
+    [[assert:   pt1 <  pt2 ]]
+    [[assert:   pt1 <= pt2 ]]
+    [[assert: !(pt1 >  pt2)]]
+    [[assert: !(pt1 >= pt2)]]
+}
+```
 
 ### Named break and continue
 
+Cppfront:
+```c++
+while_continue_outer: () =
+{
+    i := 0;
+    outer: while i<3 next i++ {
+        j := 0;
+        while j<3 next j++ {
+            std::cout << i << j << " ";
+            if j == 1 {
+                continue outer;
+            }
+            std::cout << "inner ";
+        }
+        std::cout << "outer ";
+    }
+}
+
+while_break_outer: () =
+{
+    i := 0;
+    outer: while i<3 next i++ {
+        j := 0;
+        while j<3 next j++ {
+            std::cout << i << j << " ";
+            if j == 1 {
+                break outer;
+            }
+            std::cout << "inner ";
+        }
+        std::cout << "outer ";
+    }
+}
+```
 
 ### New unified type system
 

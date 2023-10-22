@@ -208,23 +208,28 @@ C++17 introduced the [[nodiscard]] attribute. Applying this attribute to a funct
 
 ### `this` is explicit and not a pointer
 
-In Cppfront, the `this` parameter is (optionally) visible and not a not magic. This is famiuliar to Python programmers. The following example
+In Cppfront, the `this` parameter is visible and not a not magic. This is famiuliar to Python programmers.
+For normal fuctions, `this` is optional, however for constructors, destructors and operators it is mandatory.
+The following example:
 
 Cppfront:
 ```c++
-Point2: @value type = {
-	x: int = 1;
-    y: int = 1;
+Point2: @struct type = {
+	x: int = 2;
+    y: int = 3;
 
     myfunc: (this, in myparam:) -> int = {
-        return this.x * this.y;
+        return this.x * this.y + myparam;
     }
-};
+}
 
-
+main: () ={
+	mypoint:= Point2();
+	std::cout << mypoint.myfunc(1);
+}
 ```
 
-will results:
+Will transpile to:
 
 C++:
 ```c++
@@ -235,14 +240,91 @@ class Point2 {
     public: [[nodiscard]] auto myfunc(auto const& myparam) const& -> int;
 }
 
+ ...
+ 
 [[nodiscard]] auto Point2::myfunc(auto const& myparam) const& -> int{
 	return (*this).x * (*this).y; 
+}
+```
+
+And will result to:
+
+```
+7
+```
+
+### Constructors and destructors
+
+In Cppfront, constructors and destructors are defined with the `operator=`. For constructors, the parameter `out this` is mandatory. For destructors, the parameter `move this` is mandatory.
+
+Cppfront:
+```c++
+Point: type = {
+	x: int = 2;y: int = 3;
+
+    operator=: (out this, in _x, in _y) = {
+        x=_x; y=_y;
+        std::cout << "Point: my contructor (x)$ (y)$\n";
+    }
+    operator=: (out this) = {
+        std::cout << "Point: my def contructor\n";
+    }
+    operator=: (move this) = {
+        std::cout << "Point: destructor (x)$ (y)$\n";
+    }
+}
+
+main: () ={
+	pt1:= Point();
+	pt2:= Point(1,2);
 }
 ```
 
 ### `that` parameter
 
 > TODO
+
+The `that` parameter can be used to move and copy members from a class
+
+Cppfront:
+```c++
+myclass : type = {
+    operator=: (out this) = {
+		std::cout << "Default constructor\n";
+	}
+    operator=: (out this, that) = {
+        name = that.name;
+        addr = that.addr;
+		std::cout << "Copy constructor\n";
+    }
+    operator=: (out this, move that) = {
+        name = that.name;
+        addr = that.addr;
+		std::cout << "Move constructor\n";
+    }
+    operator=: (move this) = {
+		std::cout << "Destructor\n";
+    }
+    print: (this) = {
+        std::cout << "name '(name)$', addr '(addr)$'\n";
+    }
+    name: std::string = "Henry";
+    addr: std::string = "123 Ford Dr.";
+}
+
+main: () = {
+    x: myclass = (); //Create
+    x.print();
+    std::cout << "-----\n";
+    y := x; //Copy
+    x.print();
+    y.print();
+    std::cout << "-----\n";
+    z := (move x); //Move
+    x.print();
+    z.print();
+}
+```
 
 ### `<=>` three-way comparison ("spaceship")
 

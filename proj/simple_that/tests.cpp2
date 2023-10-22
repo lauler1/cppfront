@@ -1,0 +1,36 @@
+myclass : type = {
+    operator=: (out this) = {
+		std::cout << "Default constructor\n";
+	}
+    operator=: (out this, that) = {
+        name = that.name;
+        addr = that.addr;
+		std::cout << "Copy constructor\n";
+    }
+    operator=: (out this, move that) = {
+        name = that.name;
+        addr = that.addr;
+		std::cout << "Move constructor\n";
+    }
+    operator=: (move this) = {
+		std::cout << "Destructor\n";
+    }
+    print: (this) = {
+        std::cout << "name '(name)$', addr '(addr)$'\n";
+    }
+    name: std::string = "Henry";
+    addr: std::string = "123 Ford Dr.";
+}
+
+main: () = {
+    x: myclass = (); //Create
+    x.print();
+    std::cout << "-----\n";
+    y := x; //Copy
+    x.print();
+    y.print();
+    std::cout << "-----\n";
+    z := (move x); //Move
+    x.print();
+    z.print();
+}

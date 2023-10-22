@@ -1,0 +1,31 @@
+Point2: @struct type = {
+	x: int = 2;
+    y: int = 3;
+
+    myfunc: (this, in myparam:) -> int = {
+        return this.x * this.y + myparam;
+    }
+/*
+    operator==: (this, that) -> bool;
+    operator=: (inout this, who: string) = {who = "string";}
+    operator=: (inout this, who: int) = {who = "int";}
+    operator*: (inout this, who: int) = {who = "int";}
+    //operator==: (out this,  that ) = {//return true;
+    //}
+    //bool operator==(out this: Point&, in that: Point) -> bool = { retun true;};
+*/
+}
+
+main: () ={
+	mypoint:= Point2();
+	
+	std::cout << mypoint.myfunc(1);
+	/*
+    [[assert: !(pt1 == pt2)]]
+    [[assert:   pt1 != pt2 ]]
+    [[assert:   pt1 <  pt2 ]]
+    [[assert:   pt1 <= pt2 ]]
+    [[assert: !(pt1 >  pt2)]]
+    [[assert: !(pt1 >= pt2)]]
+	*/
+}

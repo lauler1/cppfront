@@ -21,36 +21,33 @@ You can combine Cpp1 and Cpp2 in a single file. However, once you start using Cp
 
 Cppfront:
 ```c++
-union X{
-    a: i32;
+union X{           // union declared with syntax 1
+    a: i32;        // mixed syntax allowed inside
     int b;
 }
 
-Y: @union type = {
-    a: int;
+Y: @union type = { // union declared with syntax 2
+    a: int;        // only sintax 2 allowed inside
     b: int;
 }
 
-int b;
-int func(){
-    a: int = 0;
+int func(){        // function declared with syntax 1
+    a: int = 0;    // mixed syntax allowed inside
     int b;
     return 0;
 }
 
-main: (args) = {
-    a: int = 0;
+main: (args) = {   // function declared with syntax 1
+    a: int = 0;    // only sintax 2 allowed inside
     b: *int = a&;
     b: = a;
 
     std::cout << "This program's name is (args[0])$";
 }
 
-a: long = 0;
+a: long = 0;   // mixed syntax at namespace scope
+int b;
 long *x = &a;
-int func2(){
-    return 0;
-}
 ```
 
 Lastly, when it comes to debugging, projects that combine both Cpp1 and Cpp2 syntaxes pose no unique challenges. Modern debugging tools and environments are designed to seamlessly handle this mix, allowing developers to inspect and troubleshoot their code efficiently. Whether you're stepping through a Cpp1 function or analyzing variables in a Cpp2 segment, the experience remains consistent and intuitive. It's a testament to the adaptability and forward-thinking design of today's development tools.
@@ -154,6 +151,7 @@ test: (d:) = {
 	b: = a;
 }
 ```
+
 However, deduced type is only allowed for local variables (e.g., inside functions) or within classes. It is not allowed for global variables or variables declared at the namespace scope.
 
 ### All variables must be initialized:
@@ -167,6 +165,55 @@ All variables in Cppfront must be initialized; failing to do so will result in a
 ```
 variable must be initialized on every branch path
  ==> program violates initialization safety guarantee - see previous errors
+```
+
+
+### Non-local objects are `const` by default
+
+In Cpp2, a majority of objects adopt the `const` attribute by default. Specifically:
+
+- Parameters inherently assume a `const` nature. The default setting for parameters is `in`, which not only signifies `const` but also restricts any modifications to its state. If mutability is required, then the alternative is `inout`, which isn't set by default.
+- As a result, class member functions are inherently `const`. The reason lies in their implicit `this` parameter, which, like any other parameter, defaults to `in` and subsequently, `const`.
+- (To be implemented) I'm planning for non-local entities, such as global and static objects, to be automatically recognized as `constexpr`.
+
+Cppfront:
+```c++
+	T: type = {
+		func1: (_a:, _b:) -> bool = {return _a == _b;}
+	}
+
+	myfunc: (_a:, _b:) -> int = {
+		a = _a;
+		b = _b;
+	}
+```
+
+Results:
+
+C++:
+```c++
+...
+class T {
+    private: int a {1}; 
+    private: int b {2}; 
+    public: [[nodiscard]] auto func1(auto const& _a, auto const& _b) const& -> bool;
+        
+    public: T() = default;
+    public: T(T const&) = delete; /* No 'that' constructor, suppress copy */
+    public: auto operator=(T const&) -> void = delete;
+};
+...
+    [[nodiscard]] auto T::func1(auto const& _a, auto const& _b) const& -> bool{
+        (*this).a = _a;
+        (*this).b = _b;
+        return a == b; 
+    }
+...
+	[[nodiscard]] auto myfunc(auto const& _a, auto const& _b) -> int{
+		a = _a;
+		b = _b;
+	}
+...
 ```
 
 ### Basic types
@@ -226,6 +273,48 @@ f3: ( out x: )     = {x=1;}  //Must be initialized
 f4: ( move x: )    = {}
 f5: ( forward x: ) = {}
 ```
+
+### Move on Last Use
+
+One of the pivotal concepts ushered in with C++11 was move semantics. This feature allows for circumventing costly deep copy operations by substituting them with more economical move operations. In essence, move semantics enable the transformation of a **deep copy** into a **shallow copy**. In Cppfront, local variables are automatically subjected to a move on their final utilization.
+
+Cppfront:
+```c++
+g: (inout myvar:) = {myvar++;}
+
+main: () = {
+    myvar := 0;
+    g(myvar);
+    g(myvar);
+    g(myvar);
+}
+```
+
+This gets translated to:
+
+C++:
+```c++
+...
+auto g(auto const& myvar) -> void {++myvar;  }
+
+auto main() -> int {
+    auto myvar {0}; 
+    g(myvar);
+    g(myvar);
+    g(std::move(myvar));
+}
+```
+
+However, there's a snag with the above rendition. The function signature `g: (inout myvar:)` does not accept an rvalue of the type ‘std::remove_reference<int&>::type’. This results in the error:
+```bash
+error: cannot bind non-const lvalue reference of type ‘int&’ to an rvalue of type ‘std::remove_reference<int&>::type’ {aka ‘int’}
+```
+
+To navigate around this issue, there are two alternatives:
+1. Introduce a fresh function that accommodates the move operation, i.e., `g: (move myvar:)`.
+2. Invoke `myvar` post its last call to `g:()`. This can be achieved by appending a line like `_ = myvar;`.
+
+Both strategies are viable. However, in the example given, opting for the first solution renders the second infeasible. This is because once `myvar` undergoes a move, it's no longer valid for any subsequent use within `main:()`.
 
 ### [[nodiscard]] by default
 

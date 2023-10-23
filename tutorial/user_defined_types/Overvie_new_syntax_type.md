@@ -5,6 +5,8 @@ Back to Tutorial [home](../readme.md)
 
 Back to the Chapter [Overview](Overview.md)
 
+![](../TutorialUnderConstruction.png)
+
 ## Background C and C++
 
 Main source file:///C:/Users/auler/Downloads/cpp2/Cooperative_cpp_evolution_CppCon_2023_-_Sutter.pdf which is downloaded.

@@ -14,15 +14,15 @@ else
     cppfront -vers
 fi
 
-cppfront $1 tests.cpp2
+cppfront $1 tests.cpp2 -o out.cpp
 
 if [ $? -eq 0 ]; then
-	g++ -I$CPPFRONTDIR/include/ -std=c++20 tests.cpp -o tests.out
+	g++ -I$CPPFRONTDIR/include/ -std=c++20 out.cpp -o out.out
 
 	if [ $? -eq 0 ]; then
 		echo -e "\nCompilation Ok."
 		echo      "==============="
-	    ./tests.out
+	    ./out.out
 	else
 	    echo -e "\nCompilation error."
 	    echo      "=================="

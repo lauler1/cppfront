@@ -5,6 +5,8 @@ Back to Tutorial [home](../readme.md)
 
 Back to the Chapter [Overview](Overview.md)
 
+![](../TutorialUnderConstruction.png)
+
 ## Background C and C++
 
 How it is done in C and C++ 98 and modern C++

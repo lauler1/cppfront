@@ -1,6 +1,5 @@
 # Cppfront vs. Rust - A Comparative Study
 
-
 Back to Tutorial [home](../readme.md)
 
 Back to the Chapter [Overview](Overview.md)

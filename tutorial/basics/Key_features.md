@@ -208,6 +208,8 @@ C++17 introduced the [[nodiscard]] attribute. Applying this attribute to a funct
 
 ### `this` is explicit and not a pointer
 
+See: https://github.com/hsutter/cppfront/wiki/Cpp2:-operator=,-this-&-that
+
 In Cppfront, the `this` parameter is visible and not a not magic. This is famiuliar to Python programmers.
 For normal fuctions, `this` is optional, however for constructors, destructors and operators it is mandatory.
 The following example:
@@ -255,7 +257,7 @@ And will result to:
 
 ### Constructors and destructors
 
-In Cppfront, constructors and destructors are defined with the `operator=`. For constructors, the parameter `out this` is mandatory. For destructors, the parameter `move this` is mandatory.
+In Cppfront, constructors, assignment, conversion, and destructors are defined with the `operator=`. For constructors, the parameter `out this` is mandatory. For destructors, the parameter `move this` is mandatory.
 
 Cppfront:
 ```c++
@@ -284,7 +286,7 @@ main: () ={
 
 > TODO
 
-The `that` parameter can be used to move and copy members from a class
+The `that` parameter can be used to move and copy members from a class, it is a synonym for the object to be copied/moved from.
 
 Cppfront:
 ```c++

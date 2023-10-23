@@ -1,36 +1,94 @@
-# Crafting Your First Cppfront Program
+# Crafting Your First Cppfront Application
 
 
 Back to Tutorial [home](../readme.md)
 
 Back to the Chapter [Overview](Overview.md)
 
-![](../TutorialUnderConstruction.png)
+Venturing into the realm of Cppfront for the first time? This concise chapter is tailored to provide you with a firsthand experience of crafting an application using Cppfront. It's a moment of realization, where the abstract concepts you've learned take shape in a tangible program. Here's a glimpse of the exciting journey ahead:
 
-## Background C and C++
+   - **Beginning with the Basics:** We kick off with an introduction to the pivotal "main:" function, the starting point of every Cppfront application.
+   - **Arguments Unfolded:** Dive into the dynamics of program "args" and discover their instrumental role in enhancing the functionality of your programs.
+   - **Tapping into the 'std' Library with `std::cout`:** No need for elaborate inclusions! Cppfront inherently integrates the vast "std" library, broadening your programming horizons. Unravel the simplicity of outputting data, enriched with the prowess of format specifications.
+   - **Deciphering the C++ Blueprint:** Cppfront's beauty lies in its ability to transpile into C++. We'll sharpen your skills in decoding this generated C++, a cornerstone for those aspiring for an in-depth grasp of Cppfront.
 
-How it is done in C and C++ 98 and modern C++
+So, gear up to witness the seamless fusion of elegance and power as you craft your first application in Cppfront!
 
-## New syntax cppfront
+## Embracing the New Syntax of Cppfront
 
-Shows how is done now
+Let's journey into the realm of Cppfront by starting with a classic 'Hello World' example. Imagine needing to write a simple program that takes a command line argument to customize a greeting. Here's how you'd accomplish that in Cppfront:
 
+Cppfront:
+```c++
+main: (args) = {
+	mytext: std::string = "welcome to Cppfront.";
+	std::cout <<  "Hello (args[0])$, (mytext)$";
+}
+```
 
-## How is the code transpiled
+Several features immediately stand out in this example:
 
-## Advanced topics
+1. **Omitting Includes:** One of the first things you might notice is the absence of the `#include` directive. That's because Cppfront, for the user's convenience, automatically encompasses the Standard Library (`std`). This cuts down on boilerplate and fosters a cleaner code structure.
 
-Cover other advanced modern C++ topics (e.g. C++ 17, 20, 23) because the idea is to teach how to write code right.
-If cppfront does not have a specific syntax, then use modern C++.
+2. **The Essential 'main' Function:** Just as in C++, the 'main' function serves as the entry point to your application. In Cppfront, the signature takes a twist. The function name is presented first, followed by a colon, as in `main:`. Traditional `argc` and `argv` from C++ are elegantly collapsed into a single `args` parameter in Cppfront. This `args` is of type `args_t`, which essentially mirrors a vector containing all arguments as `string_view` (i.e., `std::vector<std::string_view>`).
 
----
+3. **Function Declaration:** The general syntax for declaring functions in Cppfront goes like this: `[name]: ([params]) -> [return type] = {[function code]}`. While all functions follow this template, remember that parameters and return types can be optional. If a function doesn't return a value, you can conveniently omit the `-> [return type]` segment.
 
-Witness the culmination of your learning as we guide you in crafting your first cppfront application. This section will cover:
-   - Introduction to the "main:" function.
-   - Navigating program "args" and their utility.
-   - The convenience of "std::cout" with format specifications.
-   - Delve into the "std" library, which is inherently included in cppfront.
-   - Decoding the Generated C++: One of the essential skills when working with cppfront is understanding the C++ output it produces. We'll help you become proficient in analyzing the generated C++ code, emphasizing its importance for deeper mastery of the language.
+4. **Variable Declaration:** Within our 'main' function, we've declared a string variable named `mytext`. This declaration showcases the unique left-to-right syntax of Cppfront, echoing the function declarations. All variables generally adhere to the `[name]: [type] = [initial value]` format. However, it's worth noting that the type can be inferred from the initial value, allowing for a more concise `mytext:= "welcome to Cppfront."`.
+
+5. **Formatted Output:** The concluding line sends a custom greeting to the standard output. What's striking here is Cppfront's built-in formatting mechanism. Using the `()$` attributes within the text, you can effortlessly embed variable values within your printed statements.
+
+Each of these features adds layers of convenience, making Cppfront a compelling choice for those looking for modern syntax while retaining the power and familiarity of C++.
+
+## Understanding the Transpilation Process
+
+Below, you'll find the C++ code generated by the Cppfront transpiler from our earlier example:
+
+C++:
+```c++
+//=== Cpp2 type declarations ====================================================
+
+#include "cpp2util.h"
+
+//=== Cpp2 type definitions and function declarations ===========================
+
+#line 2 "tests.cpp2"
+auto main(int const argc_, char** argv_) -> int;
+
+//=== Cpp2 function definitions =================================================
+
+#line 2 "tests.cpp2"
+auto main(int const argc_, char** argv_) -> int{
+ auto args = cpp2::make_args(argc_, argv_); 
+#line 3 "tests.cpp2"
+ std::string mytext {"welcome to Cppfront."}; 
+ std::cout <<  "Hello " + cpp2::to_string(cpp2::assert_in_bounds(args, 0)) + ", " + cpp2::to_string(std::move(mytext));
+}
+```
+
+A step-by-step breakdown:
+
+- The C++ code consists of three distinct sections: 
+	1. Type declarations
+	2. Type definitions and function declarations
+	3. Function definitions
+
+- The first section introduces the inclusion of the `cpp2util.h` file, a crucial header containing definitions required by Cppfront for the transpiled code.
+
+- The second section showcases the declaration of the `main` function. The preprocessor directive `#line 2 "tests.cpp2"` serves an important purpose: it guides the compiler (and debuggers) to connect the C++ code back to its original Cpp2 source. This ensures that any compiler error messages refer to the Cpp2 file, aiding in more intuitive troubleshooting.
+
+- In the third section, the `main` function is detailed:
+	- The `args` variable is both declared and initialized using the `cpp2::make_args` helper function—this is seamlessly injected by the transpiler.
+	- The intuitive string formatting from the Cpp2 code is achieved using the `cpp2::to_string` function.
+	- For safety, `cpp2::assert_in_bounds` is introduced by the transpiler to verify that array/vector accesses remain within bounds. If, for instance, an element that isn't in the vector (like `args[1]` in Cppfront) is accessed, the application will halt and provide a descriptive error:
+
+```bash
+Bounds safety violation: out of bounds access attempt detected
+terminate called without an active exception
+Aborted
+```
+
+By understanding this transpiled code, developers can bridge the gap between Cppfront's unique syntax and conventional C++ more effectively.
 
 ## Next
 

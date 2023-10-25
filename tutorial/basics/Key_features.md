@@ -130,7 +130,15 @@ Functions can be declared in any order because Cppfront warants the declaration
 
 order independence (no forward declarations inCpp2 because we forward-declare everything in the Cpp1 code)
 
-### deduced type `_`
+### wildcard `_`
+
+There are two uses for wildcard `_`.
+- deduced typewildcard
+- “don’t care” wildcard
+
+
+
+#### deduced type wildcard
 
 Since C++11, the `auto` keyword has been introduced to deduce the type from the initializer. In Cppfront, you can use `_` in place of the C++ `auto` keyword. See the example for clarification.
 
@@ -153,6 +161,41 @@ test: (d:) = {
 ```
 
 However, deduced type is only allowed for local variables (e.g., inside functions) or within classes. It is not allowed for global variables or variables declared at the namespace scope.
+
+#### “don’t care” wildcard
+
+When there's a need to consciously overlook a result, one can use the "intentional disregard" wildcard. It's understated yet unmistakably deliberate:
+
+Cppfront:
+```c++
+_ = vec.emplace_back(1,2,3);
+```
+When is it apt to employ this?
+
+Cppfront:
+```c++
+g: (inout myvar:) = {myvar++;}
+
+main: () = {
+    myvar := 0;
+    g(myvar);
+}
+```
+
+This topic is also shown in the **Move on Last Use** section below. In this example, that call to `g: (inout myvar:)`; is a definite last use of `myvar`, and so Cpp2 will automatically pass `myvar` as an rvalue and make it a move candidate… and presto! the call won’t compile because you can’t pass an rvalue to a Cpp2 `inout` parameter. That’s a feature, not a bug, because if that’s the last use of `myvar` that means the function is not looking at `myvar` again, so it’s ignoring the “out” value of the `g: (inout myvar:)` function call, which is exactly like ignoring a return value. And the guidance is the same: If you really meant to do that, just explicitly discard `myvar`‘s final value:
+
+Cppfront:
+```c++
+g: (inout myvar:) = {myvar++;}
+
+main: () = {
+    myvar := 0;
+    g(myvar);
+    _ = myvar; // all right, you said you meant it, carry on then...
+}
+```
+
+Adding `_ = myvar`; afterward naturally makes that the last use of `myvar` instead. Problem solved, and it self-documents that the code really meant to ignore a function’s output value.
 
 ### All variables must be initialized:
 
@@ -252,6 +295,7 @@ r1's type = St10unique_ptrIiSt14default_deleteIiEE
 
 ### `in`, `out` and `inout`
 
+Cppfront has no references `&`.
 
 Declare intent directly:
 
@@ -314,7 +358,7 @@ To navigate around this issue, there are two alternatives:
 1. Introduce a fresh function that accommodates the move operation, i.e., `g: (move myvar:)`.
 2. Invoke `myvar` post its last call to `g:()`. This can be achieved by appending a line like `_ = myvar;`.
 
-Both strategies are viable. However, in the example given, opting for the first solution renders the second infeasible. This is because once `myvar` undergoes a move, it's no longer valid for any subsequent use within `main:()`.
+Both strategies are viable. However, in the given example, employing the first solution makes the second one untenable. This is because, after `myvar` is moved, it resides in an unspecified state and its continued use within `main:()` is not guaranteed to be valid.
 
 ### [[nodiscard]] by default
 
@@ -548,6 +592,8 @@ to this, which is the same except that it removes : and =
 
 
 ### Keywords `is` and `as`, and pattern matching
+
+all type casts done via as
 
 - **x is C** can be used uniformly for all constraints. C can be a type predicate, specific type, value predicate,
 or specific value.

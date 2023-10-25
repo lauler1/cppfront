@@ -13,3 +13,31 @@
 - [ ] Add each topic in Ket Features chapter a link to the other chapter where the topic will be explored deeply
 
 - [ ] For each possible combination of attributes for `this` and `that` (and also params in normal function) show what the combination in Cppfront will generate in C++. E.g. in, out, inout, move, implicit, virtual, override, implicit...: https://github.com/hsutter/cppfront/wiki/Cpp2:-operator=,-this-&-that
+
+- [ ] Take a look in https://github.com/ntrel/cpp2#readme
+
+
+In Cpp2: https://cppclub.uk/meetings/2022/154/
+
+- [ ] [Core Guidelines are the defaults](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines)
+- [ ] left-to-right declarations: name: type = value
+- [ ] no references (Herb really doesn’t like them, says they were introduced for parameter passing only)
+- [X] implicit import std (modules-first design)
+- [X] _ wildcard
+- [ ] optional return for single-expression functions
+- [ ] lambda is declared the same way as a function, but omits the name => short lambda syntax
+- [ ] order-independent syntax, no forward declarations
+- [ ] no preprocessor! (in pure mode)
+- [ ] automatically defined variables: local_foo := func(), whoa, he really used :=
+- [ ] universal function call syntax: vec.ssize() -> std::ssize(vec) (also helps IntelliSense)
+- [ ] all type casts done via as
+- [ ] union not supported
+- [ ] all variables are initialised before use; nullptr is not supported
+- [ ] no pointer arithmetic
+- [ ] delete and owning raw pointers are not supported
+- [ ] unary operators are suffixes: to get an address, follow the expression with &
+- [ ] contracts!!
+- [ ] parameter passing: out parameters (weren’t they discouraged? it looks like a regression from returning values…), also: copy, inout, move, and forward
+- [ ] in parameters are automatically const, and you don’t need to choose between passing by value or by reference (hi Carbon)
+- [ ] variable capture using $ for lambdas, post-conditions, and string interpolation
+

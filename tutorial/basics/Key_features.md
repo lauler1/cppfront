@@ -272,9 +272,9 @@ Cppfront has introduced a set of primitive types derived from the C++ language's
 - New unsigned types (from std): u8, u16, u32, u64
 - Also (from primitive): ushort, ulong, longlong, ulonglong, longdouble
 
-### The `new<T>` Syntax in Cppfront
+### The `new` Syntax in Cppfront
 
-In Cppfront, the `new<T>` syntax defaults to returning a `std::unique_ptr`. Interestingly, if you specify the type of a variable as either `std::shared_ptr` or `std::unique_ptr<int>`, the `new<T>` syntax will adjust its return type accordingly.
+In Cppfront, the `new` syntax defaults to returning a `std::unique_ptr`. Interestingly, if you specify the type of a variable as either `std::shared_ptr` or `std::unique_ptr<int>`, the `new<T>` syntax will adjust its return type accordingly.
 
 Here's an illustrative example in Cppfront:
 
@@ -297,6 +297,8 @@ p1's type = St10unique_ptrIiSt14default_deleteIiEE
 q1's type = St10shared_ptrIiE
 r1's type = St10unique_ptrIiSt14default_deleteIiEE
 ```
+
+Cppfront does not allow pointer arithmetic.
 
 ### `in`, `out` and `inout`
 
@@ -557,7 +559,12 @@ Cppfront:
 > Note: At the moment of writing this tutorial, there was some discussion about how should be the syntax of Captures (e.g., prefix or suffix `$`).
 
 
-### Pre and Postconditions
+### Pre-, Postconditions and Assert
+
+Syntax:
+- `[[pre: <condition>]]` = Precondition.
+- `[[post: <condition>]]` = Postcondition.
+- `[[assert: <condition>]]` = Assert.
 
 As their names suggest, preconditions and postconditions are used to test the conditions before and after a function is called. If a condition fails, a contract error is written to stderr, and the program is aborted.
 
@@ -577,6 +584,8 @@ myincrement: ()
 ```
 
 In order to improve the quality of information sent to stderr, use the option `-a` of the Cppfront transpiler.
+
+Asserts can be used everywhere, e.g. `[[assert: !(pt1 == pt2)]]`.
 
 ### `<=>` three-way comparison ("spaceship")
 

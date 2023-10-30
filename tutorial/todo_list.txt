@@ -35,6 +35,11 @@ In Cpp2: https://cppclub.uk/meetings/2022/154/
 - [ ] delete and owning raw pointers are not supported
 - [ ] unary operators are suffixes: to get an address, follow the expression with &
 - [X] contracts!!
+	- [X] pre, post
+	- [X] assert
+- [ ] default const, default nodiscard 
+- [X] new is make_unique
+- [X] no pointer math
 - [X] parameter passing: out parameters (weren’t they discouraged? it looks like a regression from returning values…), also: copy, inout, move, and forward
 - [ ] in parameters are automatically const, and you don’t need to choose between passing by value or by reference (hi Carbon)
 - [ ] variable capture using $ for lambdas, post-conditions, and string interpolation

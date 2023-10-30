@@ -1,0 +1,13 @@
+i:int=0;
+main: () -> int = {
+	std::cout << "Begin\n";
+    myincrement();
+    myincrement();
+	std::cout << "End\n";
+}
+myincrement: () 
+    [[pre:  i >= 1 ]]
+    [[post: i > 0 && i == (i$+1)]]
+= {
+    i++;
+}

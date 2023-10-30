@@ -36,7 +36,7 @@ Several features immediately stand out in this example:
 
 4. **Variable Declaration:** Within our 'main' function, we've declared a string variable named `mytext`. This declaration showcases the unique left-to-right syntax of Cppfront, echoing the function declarations. All variables generally adhere to the `[name]: [type] = [initial value]` format. However, it's worth noting that the type can be inferred from the initial value, allowing for a more concise `mytext:= "welcome to Cppfront."`.
 
-5. **Formatted Output:** The concluding line sends a custom greeting to the standard output. What's striking here is Cppfront's built-in formatting mechanism. Using the `()$` attributes within the text, you can effortlessly embed variable values within your printed statements.
+5. **Formatted Output:** The concluding line sends a custom greeting to the standard output. What's striking here is Cppfront's built-in formatting mechanism. Using the `()$` attributes within the text, you can effortlessly embed variable values within your printed statements. This feature is known as Capture, and it's related to 'Lambda Captures'.
 
 Each of these features adds layers of convenience, making Cppfront a compelling choice for those looking for modern syntax while retaining the power and familiarity of C++.
 

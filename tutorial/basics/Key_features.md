@@ -65,11 +65,16 @@ stay C++: never violate zero-overhead, opt-in to “open the hood”
 
 ### Syntax & grammar
 
+declare l-to-r: Declarations are written left to right
+
+optional `{` `}` for single-expression functions, e.g. `println: (x: _) = std::cout << x << "\n";`.
+
+lambda is declared the same way as a function, but omits the name, e.g. `:(x: int = init) = { ... }`.
+
 context-free: Esp. parsing never requires sema (e.g., lookup)
 
 order-independent: No forward declarations or ordering gotchas
 
-declare l-to-r: Declarations are written left to right
 
 declare ≡ use: Declaration syntax mirrors use syntax
 	
@@ -84,9 +89,9 @@ The "std" library is inherently included in Cppfront
 self-contained support library header (e.g., in<T>):
 "#include "cpp2util.h"
 
-### Declare l-to-r:
+### Declare left-to-right:
 
-I think this is the most controversial topic of the new syntax, specially to the ones used for a very long type with the r-to-l syntax.
+I think this can be a controversial topic of the new syntax, specially to the ones used for a very long type with the r-to-l syntax. The new declaration syntax left-to-right has the form: `name: type = value`.
 
 For many, reading from left to right is natural. 
 In languages like C++, where you can have multiple modifiers to a type (like pointers or references), right-to-left reading can become confusing. Consider int* a, b; In this C++ declaration, a is a pointer to an integer, but b is just an integer. This can lead to misconceptions.
@@ -239,7 +244,7 @@ C++:
 class T {
     private: int a {1}; 
     private: int b {2}; 
-    public: [[nodiscard]] auto func1(auto const& _a, auto const& _b) const& -> bool;
+    public: [[nodiscard]] static auto func1(auto const& _a, auto const& _b) const& -> bool;
         
     public: T() = default;
     public: T(T const&) = delete; /* No 'that' constructor, suppress copy */
@@ -486,6 +491,92 @@ main: () = {
     z.print();
 }
 ```
+
+### Function, Lambda, and Block Statements
+
+In Cppfront, lambdas are functions without names. It is possible to pass parameters to a block. If a function, lambda, or block statement has a single line, it can omit the `{` and `}`.
+
+Cppfront:
+```c++
+f:(x: int = init) = { ... }     // x is a parameter to the function
+f:(x: int = init) = statement;  // same, { } is implicit
+ 
+ :(x: int = init) = { ... }     // x is a parameter to the lambda
+ :(x: int = init) = statement;  // same, { } is implicit
+ 
+  (x: int = init)   { ... }     // x is a parameter to the block
+  (x: int = init)   statement;  // same, { } is implicit
+ 
+                    { ... }     // x is a parameter to the block
+                    statement;  // same, { } is implicit
+```
+
+#### Captured Variables
+
+In Cppfront, variables used inside lambdas are captured using a '$' suffix. For example, `:() = {std::cout << y$;};`. See some examples of lambdas:
+
+Cppfront:
+```c++
+MyType: type = {
+	y4: std::string = "y4\n";
+
+	myfunc: (this) = {
+		myLambda4 := :() = { std::cout << this.y4$; };	// Capture example inside a class
+		myLambda4();
+	}
+}
+
+main: () -> int = {
+    y1: std::string = "y1\n";
+    y2: std::string = "y2\n";
+    y3: std::string = "y3\n";
+
+    myLambda1 := :() = { std::cout << y1$; };	// Capture example by copy value
+	myLambda1();
+
+    myLambda2 := :() = { std::cout << y2&$*; };	// Capture example by reference
+	myLambda2();
+	
+    myLambda3 := :() = { std::cout << "(y3$)$"; };	// Capture example by string interpolation.
+	myLambda3();
+	
+	mytype := MyType();
+	mytype.myfunc();  // Use an object
+}
+```
+
+This is also valid for post-conditions and string interpolation.
+
+Cppfront:
+```c++
+[[post: v.size() == v.size()$ + 1]] // capture a copy of v.size() on function entry for use later when the whole postcondition is evaluated on function exit.
+
+"My name is (name)$" // capture a copy of name on string construction for use later when the string value is referred to
+```
+
+> Note: At the moment of writing this tutorial, there was some discussion about how should be the syntax of Captures (e.g., prefix or suffix `$`).
+
+
+### Pre and Postconditions
+
+As their names suggest, preconditions and postconditions are used to test the conditions before and after a function is called. If a condition fails, a contract error is written to stderr, and the program is aborted.
+
+Cppfront:
+```c++
+i:int=0;
+main: () -> int = {
+    myincrement();
+    myincrement();
+}
+myincrement: () 
+    [[pre:  i >= 0 ]]
+    [[post: i > 0 && i == (i$+1)]]
+= {
+    i++;
+}
+```
+
+In order to improve the quality of information sent to stderr, use the option `-a` of the Cppfront transpiler.
 
 ### `<=>` three-way comparison ("spaceship")
 

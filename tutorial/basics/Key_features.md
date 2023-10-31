@@ -130,17 +130,30 @@ main: () -> int = {
 }
 ```
 
-Order of declaration of functions:
-Functions can be declared in any order because Cppfront warants the declaration
+### Order independence
 
-order independence (no forward declarations inCpp2 because we forward-declare everything in the Cpp1 code)
+
+No forward declarations inCpp2 because we forward-declare everything in the Cpp1 code. Functions and objects can be declared in any order because Cppfront warants the declaration, e.g.:
+
+Cppfront:
+```c++
+main: () = {
+    myType := MyType();
+	println(myType.myX);
+}
+
+MyType: type = {
+	public myX: std::string = "myX\n";
+}
+
+println: (myvar:) = { std::cout << myvar;}
+```
 
 ### wildcard `_`
 
 There are two uses for wildcard `_`.
 - deduced typewildcard
 - “don’t care” wildcard
-
 
 
 #### deduced type wildcard
@@ -421,6 +434,41 @@ And will result to:
 7
 ```
 
+#### Static Members
+
+Methods that don't include `this` are treated as static members and consequently, they cannot access the instance variables of the class. To define static const members in a class, the alias syntax can be employed.
+
+In Cppfront:
+```c++
+MyType: type = {
+    x :== 0;
+}
+```
+
+This translates to:
+
+In C++:
+```c++
+class MyType {
+    public: static const auto x;
+	...
+}
+```
+
+> Note: As of the time this tutorial was written, Cppfront did not support the creation of [static variables](https://github.com/hsutter/cppfront/issues/522).
+
+### Alias
+
+Aliases are defined using the '==' symbol and are immutable, meaning their values cannot be altered.
+
+In Cppfront:
+```c++
+var_alias :== 10;                // Alias for a variable
+func_alias :== main;             // Alias for a function
+type_alias: type == std::string; // Alias for a type
+nspace_alias: namespace == std;  // Alias for a namespace
+```
+
 ### Constructors and destructors
 
 In Cppfront, constructors, assignment, conversion, and destructors are defined with the `operator=`. For constructors, the parameter `out this` is mandatory. For destructors, the parameter `move this` is mandatory.
@@ -556,7 +604,7 @@ Cppfront:
 "My name is (name)$" // capture a copy of name on string construction for use later when the string value is referred to
 ```
 
-> Note: At the moment of writing this tutorial, there was some discussion about how should be the syntax of Captures (e.g., prefix or suffix `$`).
+> Note: At the moment of writing this tutorial, there was some discussion about how should be the [syntax of Captures](https://github.com/hsutter/cppfront/discussions/771) (e.g., prefix or suffix `$`).
 
 
 ### Pre-, Postconditions and Assert
@@ -695,12 +743,33 @@ to this, which is the same except that it removes : and =
 
 all type casts done via as
 
-- **x is C** can be used uniformly for all constraints. C can be a type predicate, specific type, value predicate,
+- **x is C** can be used uniformly to test for all constraints. C can be a type predicate, specific type, value predicate,
 or specific value.
 - **x as T** can be used uniformly to invoke all casting (conversions and coercions). T is a type predicate or
 specific type.
 
 [P2392: Pattern matching using is and as](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2022/p2392r2.pdf) is the ISO C++ committee paper.
+
+
+#### `is`
+
+Static queries
+
+| Cppfront   | C++                 |
+| :--------: | :-----------------: |
+| `X is Y`   | `is_same_v<X,Y>`    |
+| `D is B`   | `is_base_of_v<B,D>` |
+
+Dynamic queries
+
+| Cppfront   | C++                                                     |
+| :--------: | :-----------------------------------------------------: |
+| `pb is D*` | `dynamic_cast<D*>(pb)`                                  |
+| `v is T`   | `std::holds_alternative<T>(v)`                          |
+| `a is T`   | `a.type() == typeid(T)`                                 |
+| `o is T`   | `o.has_value()`                                         |
+| `f is T`   | `.wait_for(chrono::seconds(0)) == future_status::ready` | 
+
 
 Cppfront
 ```c++
@@ -723,19 +792,48 @@ fun: (v : _) -> std::string = {
 }
 ```
 
-## Advanced topics
+#### `as`
 
-Cover other advanced modern C++ topics (e.g. C++ 17, 20, 23) because the idea is to teach how to write code right.
-If Cppfront does not have a specific syntax, then use modern C++.
 
----
+Static queries
 
-Discover the essence of Cppfront through its salient features. This section emphasizes:
-   - Integrating tools: Unravel the workings of compilers and debuggers within the Cppfront ecosystem.
-   - Bridging with C++ Syntax: Learn how to seamlessly use C++ syntax within Cppfront, ensuring a smoother transition and enhanced compatibility.
-   - Preprocessors in Action: Understand the significance of '#' for macros and delve into the intricacies of "include" functionalities.
-   - Beyond the Basics: While this tutorial focuses on the fundamentals, it's imperative to note that anything from C++ not explicitly covered here can be integrated into Cppfront. This feature accentuates the language's versatility.
-  
+| Cppfront   | C++                   |
+| :--------: | :-------------------: |
+| `x as Y `  | `Y(x), Y{x}`          | 
+| `pd as B*` | `static_cast<B*>(pd)` |
+
+Dynamic queries
+
+| Cppfront  | C++                      |
+| :-------: | :----------------------: |
+| `pb as D `| `dynamic_cast<D*>(pb)`   |
+| `v as T`  | `std::get<T>(v)`         |
+| `v as T&` | `std::get<T&>(v)`        |
+| `a as T`  | `std::any_cast<T>(a)`    |
+| `a as T&` | `*std::any_cast<T*>(&a)` |
+| `o as T`  | `o.value()`              |
+| `f as T`  | `f.get()`                |
+
+
+C++ non-safe casts are not allowed:
+
+- `(Y)x`
+- `reinterpret_cast<Y>(x)`
+- `const_cast<X&>(cx)`
+
+### No `#` Preprocessor in Pure Cppfront
+
+When using pure Cppfront mode (`-p` option) it is not possible to use preprocessor (`#`).
+
+> Note: As of the time this tutorial was written, Cppfront did not support the [replacing of the preprocessor with reflection and generation](https://github.com/hsutter/cppfront/discussions/737).
+
+## Open Points
+
+There are some important open points:
+
+- [Syntax of Captures](https://github.com/hsutter/cppfront/discussions/771)
+- [Static variables](https://github.com/hsutter/cppfront/issues/522).
+- [Replacing the preprocessor with reflection and generation](https://github.com/hsutter/cppfront/discussions/737)
 
 ## Next
 

@@ -1,14 +1,27 @@
-ucharArray: std::array<u8, 7> = ("Hello\n");
-
-// How to transform std::array<u8, 7> to std::array<char, 7>
 main: () = {
 	charArray: std::array<char, 7> = ();
 
 	// Method 1
 	std::memcpy(charArray.data(), ucharArray.data(), ucharArray.size());
-	std::cout << charArray.data();
+	std::cout << "1 " << charArray.data();
 
 	// Method 2
 	std::copy(ucharArray.begin(), ucharArray.end(), charArray.begin());
-	std::cout << charArray.data();
+	std::cout << "2 " << charArray.data();
+
+	// Method 3 <-- from consteval
+    std::cout << "3 " << destinationArray.data();
 }
+
+
+// For method 3: a consteval function to copy one array to another
+template <typename T1, typename T2, std::size_t N>
+consteval std::array<T1, N> copy_array(const std::array<T2, N>& source) {
+    std::array<T1, N> destination{};
+	std::copy(source.begin(), source.end(), destination.begin());
+    return destination;
+}
+
+constexpr std::array<unsigned char, 7> ucharArray = {"Hello\n"};
+constexpr std::array<char, 7> destinationArray = copy_array<char, cpp2::u8, 7>(ucharArray);
+

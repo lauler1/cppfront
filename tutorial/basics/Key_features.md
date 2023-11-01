@@ -311,8 +311,7 @@ p1's type = St10unique_ptrIiSt14default_deleteIiEE
 q1's type = St10shared_ptrIiE
 r1's type = St10unique_ptrIiSt14default_deleteIiEE
 ```
-
-Cppfront does not allow pointer arithmetic.
+In Cppfront, the delete operator is not present, and raw pointers do not have the capability to own memory. Additionally, pointer arithmetic is not permitted in Cppfront.
 
 ### `in`, `out` and `inout`
 
@@ -537,6 +536,34 @@ main: () ={
 }
 ```
 
+### Inheritance
+
+Inheritance is done byt defining `this:` of the derived class. See example of a derived class Cyborg which inherits from interface Human:
+
+Cppfront:
+```c++
+Human: @interface type = {
+    speak: (this);
+}
+
+Cyborg: type = {
+    name:    std::string;
+    this:    Human = ();
+
+    operator=: (out this, n: std::string) = {
+        name = n;
+    }
+
+    speak: (override this) =
+        std::cout << "I am a Cyborg with name: (name)$\n";
+}
+
+main: ()={
+paul: Cyborg = ("Paul");
+paul.speak();
+}
+```
+
 ### `that` parameter
 
 > TODO
@@ -647,6 +674,25 @@ Cppfront:
 
 > Note: At the moment of writing this tutorial, there was some discussion about how should be the [syntax of Captures](https://github.com/hsutter/cppfront/discussions/771) (e.g., prefix or suffix `$`).
 
+### Universal Function Call Syntax (UFCS)
+
+The implementation of UFCS is now force-inlined on all compilers, i.e. when calling a nonmember function `f(x,y)` use `x.f(y)`. This is a Zero-cost implementation of UFCS.
+
+Cppfront:
+```c++
+main: ()={
+x: double = 9.0;
+result: double = x.sqrt();     // Instead of std::sqrt(x);
+
+v: std::vector<int> = (3, 1, 4);
+_ = v.size();                  // Instead of std::size(v);
+
+fd := fopen("test.txt", "w");
+_ = fd.fprintf("Hello World"); // Instead of fprintf(fd, "Hello %d!", 2);
+_ = fd.fclose();               // Instead of fclose(fd)
+// Note the '_' to force discards the results due to ‘nodiscard’ [-Wunused-result].
+}
+```
 
 ### Pre-, Postconditions and Assert
 
@@ -875,6 +921,7 @@ There are some important open points:
 - [Syntax of Captures](https://github.com/hsutter/cppfront/discussions/771)
 - [Static variables](https://github.com/hsutter/cppfront/issues/522).
 - [Replacing the preprocessor with reflection and generation](https://github.com/hsutter/cppfront/discussions/737)
+- Complete cover of operators overload
 
 ## Next
 

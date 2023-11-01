@@ -227,7 +227,8 @@ All variables in Cppfront must be initialized; failing to do so will result in a
 variable must be initialized on every branch path
  ==> program violates initialization safety guarantee - see previous errors
 ```
-
+It is not allowed to initialize a pointer with `nullptr`.
+There are some discussion how shall be raw-pointers handled. See: [cppfront issues 192](https://github.com/hsutter/cppfront/issues/192) and  [cppfront discussions 646](https://github.com/hsutter/cppfront/discussions/646)
 
 ### Non-local objects are `const` by default
 
@@ -384,6 +385,46 @@ Both strategies are viable. However, in the given example, employing the first s
 
 C++17 introduced the [[nodiscard]] attribute. Applying this attribute to a function signals that its return value shouldn't be overlooked, prompting the compiler to issue a warning. This can aid in averting security, memory leak, and performance-related bugs. While using this attribute consistently can be inconvenient, Cppfront makes [[nodiscard]] the default behavior, eliminating the need for explicit annotations.
 
+
+### Operators
+
+Overload of operator in Cppfront has the syntax `operator@: (params) -> <return type> = {/*implementation*/}`, where @ is the operator to be overloaded.
+
+Cppfront:
+```c++
+MyType: type = {
+    x: int = 0;
+    operator++: (inout this) -> int = {
+        x++;
+        return x;
+    }
+}
+main: () = {
+    myvar: MyType = ();
+    std::cout << myvar++ << "\n";
+}
+```
+
+Note the explicit use of the param `this`.
+
+See also [C++ operator overloading](https://en.cppreference.com/w/cpp/language/operators) for more details on this topic.
+> Note: As of the time this tutorial was written, Cppfront did not support full creation of operators.
+
+### Unary Operators are Suffixes
+
+In Cppfront, unary [operators are Suffixes](https://github.com/hsutter/cppfront/wiki/Design-note%3A-Postfix-operators).
+
+Cppfront:
+```c++
+	a: int = 0;
+
+	a++;            // a is incremented
+    b: *int = a&;   // b gets address of a
+	//b++;          // Error, pointer arithmetic is not allowed
+	b*++;           // Content pointed by b is incremented
+    c : int = b*;   // c gets the value pointed by b
+    std::cout << c<< "\n"; // result = 2
+```
 
 ### `this` is explicit and not a pointer
 
@@ -713,7 +754,7 @@ Unified format has `name: <@metafunction> type = {...}` syntax, where metafuncti
 - **@struct** A `basic_value` with all public members, no virtual functions, and no user written `operator=`.
 - **@enum** Same safeties as `enum class` + only valid values.
 - **@flag_enum** Same as `@enum` but as flags (bit fields), add up them into a variable using the `|` operator.
-- **@union** Same usability as `union`, same safety as `variant`.
+- **@union** Same usability as `union`, same safety as `variant`. C/C++ unions are not supported in pure mode (using `-p` option).
 
 
 ### Corollary: Simplified `for` each
@@ -795,14 +836,14 @@ fun: (v : _) -> std::string = {
 #### `as`
 
 
-Static queries
+Static casts
 
 | Cppfront   | C++                   |
 | :--------: | :-------------------: |
 | `x as Y `  | `Y(x), Y{x}`          | 
 | `pd as B*` | `static_cast<B*>(pd)` |
 
-Dynamic queries
+Dynamic casts
 
 | Cppfront  | C++                      |
 | :-------: | :----------------------: |

@@ -1,0 +1,21 @@
+MyType: type = {
+    x: int = 0;
+    operator++: (inout this) -> int = { // Overload operator ++
+        x++;
+        return x;
+    }
+}
+
+main: () = {
+    myvar: MyType = ();
+    std::cout << myvar++ << "\n"; // Use overloaded operator
+
+	a: int = 0;
+	a++;            // a is incremented
+    b: *int = a&;   // b gets address of a
+	//b++;          // Error, not allowed
+	b*++;           // Content pointed by b is incremented
+    c : int = b*;   // c gets the value pointed by b
+    std::cout << c<< "\n";
+
+}

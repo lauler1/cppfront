@@ -1,0 +1,13 @@
+
+main: () -> int
+= {
+	a: std::array<char, 6> = ("hallo");
+    std::cout << a[-1] << "\n"; // aborts
+	
+    sv: std::string_view = ("Hallo");
+    std::cout << sv[5] << "\n"; // aborts
+
+    v: std::vector = ("str1", "str2");
+    std::cout << v[2] << "\n"; // aborts
+}
+

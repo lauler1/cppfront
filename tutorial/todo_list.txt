@@ -19,30 +19,42 @@
 
 In Cpp2: https://cppclub.uk/meetings/2022/154/
 - [ ] [**Core Guidelines are the defaults**](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines)
+- [X] inspect expression
+- [X] Bounds Checks
+- [X] Anonymous Variables --> Specifying Parameter Types Explicitly
+- [X] Returning Multiple Values. f: () -> (i: int, s: std::string) = {}
+- [X] Variadic Template Functions --> this is C++ standard, nothing special in Cppfront so far.
+- [X] Error handling: https://www.youtube.com/watch?v=os7cqJ5qlzo https://www.youtube.com/watch?v=ARYP83yNAWk
 - [X] left-to-right declarations: name: type = value
 - [X] implicit import std (modules-first design)
 - [X] _ wildcard
 - [X] optional {return ...} for single-expression functions
 - [X] lambda is declared the same way as a function, but omits the name => short lambda syntax
-- [ ] order-independent syntax, no forward declarations
-- [ ] no preprocessor! (in pure mode)
-- [ ] automatically defined variables: local_foo := func(), whoa, he really used :=
-- [ ] universal function call syntax: vec.ssize() -> std::ssize(vec) (also helps IntelliSense)
-- [ ] all type casts done via as
-- [ ] union not supported
-- [ ] all variables are initialised before use; nullptr is not supported
-- [ ] no pointer arithmetic
-- [ ] delete and owning raw pointers are not supported
-- [ ] unary operators are suffixes: to get an address, follow the expression with &
+- [X] order-independent syntax, no forward declarations
+- [X] no preprocessor! (in pure mode) -> Added as an opne point reflection and generation.
+- [X] all type casts done via as
+- [X] all variables are initialised before use; nullptr is not supported
+- [X] automatically defined variables: `local_foo := func()`, whoa, he really used `:=`
+- [X] universal function call syntax (UFCS): `vec.ssize()` instead of `std::ssize(vec)` (also helps IntelliSense)
+- [X] delete and owning raw pointers are not supported
+- [X] no pointer arithmetic
+- [X] union not supported
+- [X] unary operators are suffixes: to get an address, follow the expression with &
+- [X] class inheritance
 - [X] contracts!!
 	- [X] pre, post
 	- [X] assert
-- [ ] default const, default nodiscard 
+- [X] default const, default nodiscard 
 - [X] new is make_unique
 - [X] no pointer math
 - [X] parameter passing: out parameters (weren’t they discouraged? it looks like a regression from returning values…), also: copy, inout, move, and forward
-- [ ] in parameters are automatically const, and you don’t need to choose between passing by value or by reference (hi Carbon)
-- [ ] variable capture using $ for lambdas, post-conditions, and string interpolation
+- [X] in parameters are automatically const, and you don’t need to choose between passing by value or by reference (hi Carbon)
+- [X] variable capture using $ for lambdas, post-conditions, and string interpolation
+- [X] static variables inside a class.
+	- [X] `static const` using alias
+	- [X] `static` non-const not yet implemented in Cppfront: https://github.com/hsutter/cppfront/issues/522
 
 Also to consider:
 - [ ] https://changkun.de/modern-cpp/pdf/modern-cpp-tutorial-en-us.pdf
+
+

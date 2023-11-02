@@ -14,10 +14,10 @@ else
     cppfront -vers
 fi
 
-cppfront $1 tests.cpp2 -o out.cpp
+cppfront -a -in $1 tests.cpp2 -o out.cpp
 
 if [ $? -eq 0 ]; then
-	g++ -I$CPPFRONTDIR/include/ -std=c++20 out.cpp -o out.out
+	clang++ -I$CPPFRONTDIR/include/ -g -std=c++20 out.cpp -o out.out
 
 	if [ $? -eq 0 ]; then
 		echo -e "\nCompilation Ok."
@@ -32,3 +32,11 @@ else
     echo -e "\nCppfront error."
     echo      "==============="
 fi
+
+
+#  -no-c[omparison-checks] Disable mixed-sign comparison safety checks
+#  -no-n[ull-checks]       Disable null safety checks
+#  -no-s[ubscript-checks]  Disable subscript safety checks
+
+#  -fno-e[xceptions]       Disable C++ EH - failed 'as' for 'variant' will assert
+#  -fno-r[tti]             Disable C++ RTTI - using 'as' for '*'/'std::any' will assert

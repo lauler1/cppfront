@@ -10,6 +10,8 @@ Back to the Chapter [Overview](Overview.md)
 ## Background C and C++
 
 	> TO DO
+	
+	
 
 	To cover not only the all basic types but all numbers sufix with specific size. Also std numbers.
 
@@ -57,6 +59,26 @@ The type of the integer literal is the first type in which the value can fit, fr
 
 
 How it is done in C and C++ 98 and modern C++
+
+Optional single quotes (') may be inserted between the digits as a separator; they are ignored when determining the value of the literal.
+from https://en.cppreference.com/w/cpp/language/floating_literal
+Possible output:
+```
+Literal         Printed value
+58.             58
+4e2             400
+123.456e-67     1.23456e-65
+123.456e-67f    0
+.1E4f           1000
+0x10.1p0        16.0625
+0x1p5           32
+0x1e5           485
+3.14'15'92      3.14159
+1.18e-4932l     1.18e-4932
+3.4028234e38f   340282346638528859811704183484516925440
+3.4028234e38    340282339999999992395853996843190976512
+3.4028234e38l   340282339999999999995912555211526242304
+```
 
 ## New syntax cppfront
 

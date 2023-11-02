@@ -663,6 +663,14 @@ main: () -> int = {
 }
 ```
 
+String Interpolation has the format `(...)$` inside strings and allows also the evaluation of expressions.
+
+Cppfront:
+```c++
+x := 5;
+str: std::string = "res = (x * 2)$\n";
+std::cout << str; // res = 10
+```
 This is also valid for post-conditions and string interpolation.
 
 Cppfront:
@@ -673,6 +681,23 @@ Cppfront:
 ```
 
 > Note: At the moment of writing this tutorial, there was some discussion about how should be the [syntax of Captures](https://github.com/hsutter/cppfront/discussions/771) (e.g., prefix or suffix `$`).
+
+#### Specifying Parameter Types Explicitly
+
+In Cppfront, you have the ability to specify the type of function parameter you wish to use when calling overloaded functions.
+
+Cppfront Example:
+```c++
+myfunc: (x: u8)   = { std::cout << "u8:  (x)$\n"; }
+myfunc: (x: u16)  = { std::cout << "u16: (x)$\n"; }
+myfunc: (x: u32)  = { std::cout << "u32: (x)$\n"; }
+
+main: () = {
+    myfunc(:u8 =  1);  // Calls version with u8
+    myfunc(:u16 = 1);  // Calls version with u16
+    myfunc(:u32 = 1);  // Calls version with u32
+}
+```
 
 ### Universal Function Call Syntax (UFCS)
 
@@ -908,11 +933,90 @@ C++ non-safe casts are not allowed:
 - `reinterpret_cast<Y>(x)`
 - `const_cast<X&>(cx)`
 
+### `inspect`
+
+`inspect` is used for pattern matching.
+
+Cppfront
+```c++
+main: () -> int = {
+    test_generic(0);
+    test_generic(0.1);
+    test_generic(true);
+    test_generic("");
+
+    up: std::unique_ptr<int> = ();
+    it: std::vector<int>::iterator = ();
+ 
+    test_generic(up);
+    test_generic(it);
+}
+ 
+test_generic: ( x: _ ) = {
+std::cout 
+	<< typeid(x).name() << ": "
+	<< inspect x -> std::string {
+		is void   = " EMPTY";
+		is int    = " int";
+		is double = " double";
+		is bool   = " bool";
+		is _      = " no match";
+	   }
+	<< "\n";
+}
+```
+There is a very basic support for inspect expressions, see  [`is`, `as`, and pattern matching](https://github.com/hsutter/cppfront#2021-is-as-and-pattern-matching).
+
 ### No `#` Preprocessor in Pure Cppfront
 
 When using pure Cppfront mode (`-p` option) it is not possible to use preprocessor (`#`).
 
 > Note: As of the time this tutorial was written, Cppfront did not support the [replacing of the preprocessor with reflection and generation](https://github.com/hsutter/cppfront/discussions/737).
+
+### Bounds check
+
+Cppfront automatically performs runtime checks for bounds violations when accessing elements of arrays, vectors, lists, and similar data structures. In the event of an out-of-bounds access, the application is terminated.
+
+Cppfront
+```c++
+main: () -> int
+= {
+	a: std::array<char, 6> = ("hallo");
+    std::cout << a[-1] << "\n"; // aborts
+	
+    sv: std::string_view = ("Hallo");
+    std::cout << sv[5] << "\n"; // aborts
+
+    v: std::vector = ("str1", "str2");
+    std::cout << v[2] << "\n"; // aborts
+}
+```
+
+### Handling Multiple Return Values
+
+Cppfront allows functions to return multiple values. Each return parameter must be explicitly named, and they need to be initialized within the function body, or else the Cppfront transpiler will generate an error. The following example demonstrates returning multiple values including 'valid', 'error', and 'val':
+
+Cppfront:
+```c++
+myfunc: (opt: int) -> (valid: bool, error: int, val: std::string) = {
+    if(opt) {
+        valid = true;
+        error = 0;
+        val = "This is the value";
+    } else {
+        valid = false;
+        error = 1;
+        val = "Error";
+    }
+}
+
+main: () = {
+    answer := myfunc(0);
+    std::cout << "valid = (answer.valid)$, error = (answer.error)$, val = (answer.val)$\n";
+    answer = myfunc(1);
+    std::cout << "valid = (answer.valid)$, error = (answer.error)$, val = (answer.val)$\n";
+}
+```
 
 ## Open Points
 
@@ -922,6 +1026,9 @@ There are some important open points:
 - [Static variables](https://github.com/hsutter/cppfront/issues/522).
 - [Replacing the preprocessor with reflection and generation](https://github.com/hsutter/cppfront/discussions/737)
 - Complete cover of operators overload
+- [Zero-overhead Exception Handling](https://github.com/hsutter/cppfront#2018-updates-to-lifetime-and-metaclasses-see-above). [See Youtybe](https://www.youtube.com/watch?v=os7cqJ5qlzo)
+-  Full support for [`is`, `as`, and pattern matching](https://github.com/hsutter/cppfront#2021-is-as-and-pattern-matching).
+
 
 ## Next
 

@@ -62,21 +62,6 @@ This section provides a summary of Cppfront's primary features. Each topic will 
 stay measurable: Each change must address a known C++ weakness in a measurable way (e.g., remove X% of rules we teach, remove X% of reported vulnerabilities)
 
 stay C++: never violate zero-overhead, opt-in to “open the hood”
-
-### Syntax & grammar
-
-declare l-to-r: Declarations are written left to right
-
-optional `{` `}` for single-expression functions, e.g. `println: (x: _) = std::cout << x << "\n";`.
-
-lambda is declared the same way as a function, but omits the name, e.g. `:(x: int = init) = { ... }`.
-
-context-free: Esp. parsing never requires sema (e.g., lookup)
-
-order-independent: No forward declarations or ordering gotchas
-
-
-declare ≡ use: Declaration syntax mirrors use syntax
 	
 ### Automatic inclusion of the std libraries:
 	
@@ -133,7 +118,7 @@ main: () -> int = {
 ### Order independence
 
 
-No forward declarations inCpp2 because we forward-declare everything in the Cpp1 code. Functions and objects can be declared in any order because Cppfront warants the declaration, e.g.:
+No forward declarations inCpp2 because we forward-declare everything in the Cpp1 code. Functions and objects can be declared in any order because Cppfront warrants the declaration, e.g.:
 
 Cppfront:
 ```c++
@@ -152,7 +137,7 @@ println: (myvar:) = { std::cout << myvar;}
 ### wildcard `_`
 
 There are two uses for wildcard `_`.
-- deduced typewildcard
+- deduced type wildcard
 - “don’t care” wildcard
 
 
@@ -200,7 +185,7 @@ main: () = {
 }
 ```
 
-This topic is also shown in the **Move on Last Use** section below. In this example, that call to `g: (inout myvar:)`; is a definite last use of `myvar`, and so Cpp2 will automatically pass `myvar` as an rvalue and make it a move candidate… and presto! the call won’t compile because you can’t pass an rvalue to a Cpp2 `inout` parameter. That’s a feature, not a bug, because if that’s the last use of `myvar` that means the function is not looking at `myvar` again, so it’s ignoring the “out” value of the `g: (inout myvar:)` function call, which is exactly like ignoring a return value. And the guidance is the same: If you really meant to do that, just explicitly discard `myvar`‘s final value:
+This topic is also shown in the **Move on Last Use** section below. In this example, that call to `g: (inout myvar:)`; is a definite last use of `myvar`, and so Cpp2 will automatically pass `myvar` as a rvalue and make it a move candidate… and presto! the call won’t compile because you can’t pass a rvalue to a Cpp2 `inout` parameter. That’s a feature, not a bug, because if that’s the last use of `myvar` that means the function is not looking at `myvar` again, so it’s ignoring the “out” value of the `g: (inout myvar:)` function call, which is exactly like ignoring a return value. And the guidance is the same: If you really meant to do that, just explicitly discard `myvar`‘s final value:
 
 Cppfront:
 ```c++
@@ -369,9 +354,9 @@ auto main() -> int {
 }
 ```
 
-However, there's a snag with the above rendition. The function signature `g: (inout myvar:)` does not accept an rvalue of the type ‘std::remove_reference<int&>::type’. This results in the error:
+However, there's a snag with the above rendition. The function signature `g: (inout myvar:)` does not accept a rvalue of the type ‘std::remove_reference<int&>::type’. This results in the error:
 ```bash
-error: cannot bind non-const lvalue reference of type ‘int&’ to an rvalue of type ‘std::remove_reference<int&>::type’ {aka ‘int’}
+error: cannot bind non-const lvalue reference of type ‘int&’ to a rvalue of type ‘std::remove_reference<int&>::type’ {aka ‘int’}
 ```
 
 To navigate around this issue, there are two alternatives:
@@ -393,14 +378,30 @@ Cppfront:
 ```c++
 MyType: type = {
     x: int = 0;
+    operator=: (inout this, _x:int) = {
+        x=_x;
+    }
     operator++: (inout this) -> int = {
         x++;
+        return x;
+    }
+    operator+=: (inout this, _x:int) -> int = {
+        x+=_x;
+        return x;
+    }
+    operator+: (move this, move that) -> int = {
+        x+=that.x;
         return x;
     }
 }
 main: () = {
     myvar: MyType = ();
     std::cout << myvar++ << "\n";
+    std::cout << (myvar+=2) << "\n";
+
+    myvar2: MyType = ();
+	myvar2=2;
+    std::cout << (myvar+myvar2) << "\n";
 }
 ```
 
@@ -425,13 +426,13 @@ Cppfront:
     std::cout << c<< "\n"; // result = 2
 ```
 
-### `this` is explicit and not a pointer
+### Explicit `this` Reference
 
-See: https://github.com/hsutter/cppfront/wiki/Cpp2:-operator=,-this-&-that
+Refer to: [Cpp2: operator=, this & that](https://github.com/hsutter/cppfront/wiki/Cpp2:-operator=,-this-&-that)
 
-In Cppfront, the `this` parameter is visible and not a not magic. This is famiuliar to Python programmers.
-For normal fuctions, `this` is optional, however for constructors, destructors and operators it is mandatory.
-The following example:
+In Cppfront, the `this` parameter is explicit and not hidden, similar to how it is used in Python. While it is optional for regular member functions, it is required for constructors, destructors, and overloaded operators. If `this` is not specified in the member function's parameter list, then the function behaves like a static method, meaning it does not have access to the instance members of the class.
+
+Here is an example:
 
 Cppfront:
 ```c++
@@ -566,7 +567,6 @@ paul.speak();
 
 ### `that` parameter
 
-> TODO
 
 The `that` parameter can be used to move and copy members from a class, it is a synonym for the object to be copied/moved from.
 
@@ -905,7 +905,6 @@ fun: (v : _) -> std::string = {
 ```
 
 #### `as`
-
 
 Static casts
 

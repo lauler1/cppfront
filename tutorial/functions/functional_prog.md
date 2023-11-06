@@ -15,6 +15,7 @@ From: [Scott Wlaschin — Railway oriented programming](https://www.youtube.com/
 
 ![](functional.png)
 
+![](functional2.png)
 
 Using `std::optional`
 ```c++

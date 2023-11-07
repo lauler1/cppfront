@@ -7,13 +7,29 @@ Back to the Chapter [Overview](Overview.md)
 
 ![](../TutorialUnderConstruction.png)
 
-## Background C and C++
 
-How it is done in C and C++ 98 and modern C++
+This chapter provides an introduction to Functional Programming in C++ and Cppfront with a focus on [`std::optional`](https://en.cppreference.com/w/cpp/utility/optional)  and [`std::expected`](https://en.cppreference.com/w/cpp/utility/expected). The explanation is inspired by Scott Wlaschin's concept of ["Railway Oriented Programming"](https://www.youtube.com/watch?v=fYo3LN9Vf_M), which is a functional approach for error handling using a railway analogy.
 
-From: [Scott Wlaschin — Railway oriented programming](https://www.youtube.com/watch?v=fYo3LN9Vf_M), valid for `std::optional` and `std::expected`.
+## Background C++
+
+`std::optional<T>` is a template class introduced in C++17 that encapsulates an optional value of type `T`. It provides a safer alternative to raw pointers for representing missing or optional values. The presence of a value must be checked (using `has_value()` or `operator bool()`) before accessing it, reducing the risk of dereferencing invalid pointers.
+
+`std::expected<T, E>` is another template class that is proposed for C++23 standards which encapsulates a value that is either the expected type `T` or an error type `E`. Like `std::optional`, it requires checking for validity before use.
+
+Both `std::optional` and `std::expected` support monadic operations that simplify chaining together sequences of operations:
+
+- `transform()`: Applies a function to the contained value and returns the result wrapped in the same type (`std::optional` or `std::expected`).
+- `and_then()`: Applies a function that itself returns an `std::optional` or `std::expected`, useful for chaining operations that might fail.
+- `transform_error()`: Specific to `std::expected`, it applies a function to the contained error value, transforming it to another type.
+- `or_else()`: For `std::optional`, it provides a default value in case the optional is empty. For `std::expected`, it can transform an error to another type or provide a valid value.
+
+The railway analogy visualizes `std::optional` and `std::expected` as a two-track railway system where one track carries successful values (OK) and the other track carries empty values (in the case of `std::optional`) or errors (in the case of `std::expected`). This system allows us to define clear paths for both successful operations and error handling, ensuring that each function in the sequence contributes to a robust and maintainable process flow.
 
 ![](functional.png)
+
+When processing input with `std::optional` or `std::expected`, we apply a series of operations that may succeed or fail. These operations are neatly organized into a pipeline where the success or failure path is clearly defined, and operations are cleanly separated from error handling logic. This approach simplifies the code by abstracting away explicit control flow and side effects, leading to more readable and maintainable code.
+
+Imagine each operation type as a building block that can be connected to another creating a longer structure as shown below:
 
 ![](functional2.png)
 
@@ -145,9 +161,30 @@ int main() {
 }
 ```
 
+### Using functions with multiple parameters
+
+Nomadic operations also allows the use of functions with multiple input parameters. This can be done by the use of `std::bind` and `std::placeholders`. Lets get the exampple of a function `my_add(int x, int y)` that adds x and y.
+
+```c++
+int my_add(int x, int y) {
+    return x + y;
+}
+...
+transform(std::bind(my_add, std::placeholders::_1, 10)) // x receives from the pipe and y receives 10
+
+//or
+
+transform(std::bind(my_add, 10, std::placeholders::_1)) // x receives 10 and y receives from the pipe
+
+```
+
+`std::placeholders` defines which 
+
 ## New syntax cppfront
 
 Shows how is done now
+
+
 
 
 ## How is the code transpiled

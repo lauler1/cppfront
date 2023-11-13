@@ -119,13 +119,13 @@ int add_two(int x) {
     std::cout << ">> add_two\n";
     return x + 2;
 }
-std::expected<int, parse_error> unexpected(parse_error e) {
+std::expected<int, parse_error> unexpected([[maybe_unused]] parse_error e) {
     std::cout << " >> unexpected\n";
     return std::unexpected(parse_error::f3);
 
 }
 
-parse_error error(parse_error e) {
+parse_error error([[maybe_unused]] parse_error e) {
     std::cout << " >> error\n";
     return parse_error::f3;
 
@@ -178,7 +178,58 @@ transform(std::bind(my_add, 10, std::placeholders::_1)) // x receives 10 and y r
 
 ```
 
-`std::placeholders` defines which 
+`std::placeholders` defines which
+
+
+### Dynamic definition of the Monad sequence
+
+This can be useful to define some sequence of operations at run time, example via a configuration file.
+In this case, we add the desired sequence of functions inside a vector and later process all of them in a loop, kind of dynamic decorator.
+
+```c++
+#include <iostream>
+#include <expected>
+#include <functional>
+#include <any>
+#include <utility>
+
+enum class parse_error{f1, f2,f3};
+
+std::expected<std::any, parse_error> add_five(std::any x) {
+    std::cout << ">> add_five\n";
+    return std::any_cast<int>(x) + 5;
+}
+
+std::expected<std::any, parse_error> to_str(std::any x) {
+    std::cout << ">> to_str\n";
+    return "My String = "+std::to_string(std::any_cast<int>(x));
+}
+
+std::expected<std::any, parse_error> make_error([[maybe_unused]] std::any x) {
+    std::cout << " >> unexpected\n";
+    return std::unexpected(parse_error::f3);
+
+}
+
+int main() {
+    std::expected<std::any, parse_error> res = int{10};
+    std::vector<std::function<std::expected<std::any, parse_error>(std::any)>> functions;
+    functions.push_back(add_five);
+    //functions.push_back(make_error);
+    functions.push_back(to_str);
+
+    for(const auto& func: functions){
+        std::cout << "-->\n";
+        res = res.and_then(func);
+    }
+    if (res) {
+        std::cout << std::any_cast<std::string>(*res) << std::endl; // Correct output
+    }else{
+        std::cout << "Error: " << std::to_underlying(res.error()) << std::endl; // Error handling
+    }
+    return 0;
+}
+```
 
 ## New syntax cppfront
 

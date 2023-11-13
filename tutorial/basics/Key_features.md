@@ -719,6 +719,8 @@ _ = fd.fclose();               // Instead of fclose(fd)
 }
 ```
 
+See also: https://github.com/hsutter/cppfront/discussions/811
+
 ### Pre-, Postconditions and Assert
 
 Syntax:

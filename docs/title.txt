@@ -1,0 +1,13 @@
+---
+title:
+- type: main
+  text: Cppfront Study
+- type: subtitle
+  text: A simple repository for Cppfront study.
+creator:
+- role: author
+  text: lauler1
+rights: © 2023 lauler1
+ibooks:
+  version: 0.0.1
+...

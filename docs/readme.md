@@ -1,4 +1,4 @@
-# CPPFRONT study
+# Cppfront study
 
 ## Introduction
 

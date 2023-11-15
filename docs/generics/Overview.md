@@ -9,6 +9,9 @@ Back to [home](../README.md)
 * [templates](templates.md)
 	* simple example
 	* ref to github example pointed by sutter
+* [templates concepts](templates_concepts.md)
+	* simple example
+	* replacing Interfaces by Concepts
 
 ## Brief Description
 

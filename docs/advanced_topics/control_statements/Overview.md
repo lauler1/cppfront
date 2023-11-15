@@ -12,8 +12,8 @@ Back to [home](../readme.md)
 		* for each loop
 		* old c/c++
 	* Match multiple conditions similar to Switch
-* [Selection Control Statements](control_statementsSelection.md)
-* [Repetition Control Statements](control_statementsRepetition.md)
+* [Selection Control Statements](control_statements/Selection.md)
+* [Repetition Control Statements](control_statements/Repetition.md)
 
 ## Brief Description
 

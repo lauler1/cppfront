@@ -76,8 +76,8 @@ The tutorial's structure embodies a holistic educational philosophy. Ranging fro
 
 ## Next
 
-To the [Next](Cppfront_VS_Rust.md) Chapter. {style=text-align:center}
+To the [Next](basics/Cppfront_VS_Rust.md) Chapter.
 
-Back to Tutorial [home](../readme.md)
+Back to Tutorial [home](../README.md)
 
 Back to the Chapter [Overview](Overview.md)

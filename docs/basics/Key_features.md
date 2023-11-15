@@ -1,9 +1,9 @@
 # Interoperability and Key Features of Cppfront
 
 
-Back to Tutorial [home](../readme.md)
+Back to Tutorial [home](../README.md)
 
-Back to the Chapter [Overview](Overview.md)
+Back to the Chapter [Overview](basics/Overview.md)
 
 ## Interoperability
 
@@ -1033,11 +1033,11 @@ There are some important open points:
 
 ## Next
 
-To the [next Chapter](../basic_data_types/Overview.md). {style=text-align:center}
+To the [next Chapter](basic_data_types/Overview.md).
 
 To the [previous Chapter](First_Program.md).
 
-Back to Tutorial [home](../readme.md)
+Back to Tutorial [home](../README.md)
 
 Back to the Chapter [Overview](Overview.md)
 

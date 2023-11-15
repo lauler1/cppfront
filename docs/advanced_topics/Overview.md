@@ -1,8 +1,8 @@
-# Overview of the Chapter: Advanced Topics![Tutorial Under Construction](../TutorialUnderConstruction.png)
+# Overview of the Chapter: Advanced Topics
 
 Back to [home](../README.md)
 
-![](../TutorialUnderConstruction.png)
+![Tutorial Under Construction](../TutorialUnderConstruction.png)
 
 ## Content
 

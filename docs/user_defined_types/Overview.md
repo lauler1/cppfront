@@ -1,8 +1,8 @@
-# Overview of the Chapter: User Defined Types![Tutorial Under Construction](../TutorialUnderConstruction.png)
+# Overview of the Chapter: User Defined Types
 
 Back to [home](../README.md)
 
-![](../TutorialUnderConstruction.png)
+![Tutorial Under Construction](../TutorialUnderConstruction.png)
 
 ## Content
 

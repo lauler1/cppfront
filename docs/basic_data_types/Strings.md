@@ -23,3 +23,6 @@ Shows how is done now
 Cover other advanced modern C++ topics (e.g. C++ 17, 20, 23) because the idea is to teach how to write code right.
 If cppfront does not have a specific syntax, then use modern C++.
 
+## TODO
+
+String format

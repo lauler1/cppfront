@@ -41,6 +41,10 @@ Transitioning to the more recent versions of C++ (from C++ 11 onwards) was a bit
 
 When I first stumbled upon Cppfront, my interest was immediately piqued. Eager to understand more, I immersed myself in any information available online and became an ardent supporter of this innovative initiative.
 
+## Acknowledgments
+
+I extend my sincere gratitude to [**Nick Ouellet**](https://github.com/CircArgs) for their valuable contribution to this project. Nick improved the file structure and implemented Docsify, greatly simplifying the deployment of this tutorial on GitHub Pages. These enhancements have significantly improved the accessibility and user-friendliness of our tutorial.
+
 ## Preface
 
 **Preface: The Future of C++ - An Introduction to Cppfront**

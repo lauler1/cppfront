@@ -1,6 +1,6 @@
 # Cppfront vs. Rust - A Comparative Study
 
-Back to Tutorial [home](../readme.md)
+Back to Tutorial [home](../README.md)
 
 Back to the Chapter [Overview](Overview.md)
 
@@ -119,6 +119,6 @@ To the [next Chapter](Installation_and_compilation.md). {style=text-align:center
 
 To the [previous Chapter](Introduction_Cppfront_Language.md).
 
-Back to Tutorial [home](../readme.md)
+Back to Tutorial [home](../README.md)
 
 Back to the Chapter [Overview](Overview.md)

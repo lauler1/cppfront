@@ -6,14 +6,14 @@ Back to [home](../README.md)
 
 ## Content
 
-* [Introduction to Control Statements](control_statements/Introduction_Controls.md)
+* [Introduction to Control Statements](Introduction_Controls.md)
 	* Conditional control flow with Cppfront
 	* Loops in Cppfront language
 		* for each loop
 		* old c/c++
 	* Match multiple conditions similar to Switch
-* [Selection Control Statements](control_statementsSelection.md)
-* [Repetition Control Statements](control_statementsRepetition.md)
+* [Selection Control Statements](Selection.md)
+* [Repetition Control Statements](Repetition.md)
 
 ## Brief Description
 

@@ -1,14 +1,14 @@
-# Overview of the Chapter: Generics![Tutorial Under Construction](../TutorialUnderConstruction.png)
+# Overview of the Chapter: Generics
 
 Back to [home](../README.md)
 
-![](../TutorialUnderConstruction.png)
+![Tutorial Under Construction](../TutorialUnderConstruction.png)
 
 ## Content
 
-* [templates](generics/templates.md)
+* [templates](templates.md)
 	* simple example
-	* ref to guihub exaple pointed by sutter
+	* ref to github example pointed by sutter
 
 ## Brief Description
 

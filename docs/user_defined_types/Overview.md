@@ -6,7 +6,7 @@ Back to [home](../README.md)
 
 ## Content
 
-* [Overview of new syntax for "@xxxx type"](user_defined_types/Overvie_new_syntax_type.md)
+* [Overview of new syntax for "@xxxx type"](Overvie_new_syntax_type.md)
 	* @interface
 	* @polymorphic_base
 	* @ordered
@@ -17,13 +17,13 @@ Back to [home](../README.md)
 	* @enum
 	* @union
 		* Maybe each  topic can be addressed in more details in separated chapters or subchapters
-* [Introduction to OOP](user_defined_types/Introduction_OOP.md)
+* [Introduction to OOP](Introduction_OOP.md)
 	* Classes and Structs
 	* Inheritance and Polymorphism
 	* Abstract Classes
-* [Constructors and destructors](user_defined_types/Constructors_destructors.md)
-* [Copy (constructor and assignment)](user_defined_types/Copy.md)
-* [Move (constructor and assignment)](user_defined_types/Move.md)
+* [Constructors and destructors](Constructors_destructors.md)
+* [Copy (constructor and assignment)](Copy.md)
+* [Move (constructor and assignment)](Move.md)
 
 ## Brief Description
 

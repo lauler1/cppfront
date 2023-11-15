@@ -6,9 +6,9 @@ Back to [home](../README.md)
 
 ## Content
 
-* [Arrays Matrices](containers/Arrays_Matrices.md)
-* [Vectors](containers/Vectors.md)
-* [Tuples](containers/Tuples.md)
-* [Ranges and Views](containers/Ranges_Views.md)
+* [Arrays Matrices](Arrays_Matrices.md)
+* [Vectors](Vectors.md)
+* [Tuples](Tuples.md)
+* [Ranges and Views](Ranges_Views.md)
 
 ## Brief Description

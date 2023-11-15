@@ -6,10 +6,10 @@ Back to [home](../README.md)
 
 ## Content
 
-* [Declaration and definition](functions/Declaration.md)
-* [in, out, inout: parameters](functions/parameters.md)
-* [lambdas](functions/lambdas.md)
-* [Scope and Lifetime](functions/Scope_Lifetime.md)
+* [Declaration and definition](Declaration.md)
+* [in, out, inout: parameters](parameters.md)
+* [lambdas](lambdas.md)
+* [Scope and Lifetime](Scope_Lifetime.md)
 
 ## Brief Description
 

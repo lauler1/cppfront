@@ -1,4 +1,4 @@
-# Automatic_type
+# Type Inference
 
 
 Back to Tutorial [home](../README.md)
@@ -9,6 +9,11 @@ Back to the Chapter [Overview](basic_data_types/Overview.md)
 
 ## Background C and C++
 
+Embrace the convenience of type inference in Cppfront with `auto`, allowing the compiler to deduce the type of a variable from its initializer. Explore `decltype` for obtaining the type of an expression, streamlining template code, and making your programs more adaptable to changes.
+
+	* auto
+	* decltype
+	
 How it is done in C and C++ 98 and modern C++
 
 ## New syntax cppfront
@@ -22,4 +27,20 @@ Shows how is done now
 
 Cover other advanced modern C++ topics (e.g. C++ 17, 20, 23) because the idea is to teach how to write code right.
 If cppfront does not have a specific syntax, then use modern C++.
+
+
+
+
+
+
+
+## Next
+
+To the [next Chapter](Strings.md).
+
+To the [previous Chapter](Operators.md).
+
+Back to Tutorial [home](../README.md)
+
+Back to the Chapter [Overview](Overview.md)
 

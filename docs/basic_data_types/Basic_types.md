@@ -9,6 +9,14 @@ Back to the Chapter [Overview](basic_data_types/Overview.md)
 
 ## Background C and C++
 
+Delve into the world of Cppfront's primitive types, examining the essentials like booleans for logical operations, chars for character representation, integers for whole numbers, and floats for decimal precision. Understand when to use each type and the distinctions between them, such as the difference between `int` and `long`, or `float` and `double`. Learn about the role of `void` in defining non-returning functions or generic pointers.
+	
+	* boolean	
+	* char
+	* int, long
+	* float double
+	* void
+
 	> TO DO
 	
 	
@@ -91,4 +99,17 @@ Shows how is done now
 
 Cover other advanced modern C++ topics (e.g. C++ 17, 20, 23) because the idea is to teach how to write code right.
 If cppfront does not have a specific syntax, then use modern C++.
+
+
+
+
+
+
+## Next
+
+To the [next Chapter](Variables.md).
+
+Back to Tutorial [home](../README.md)
+
+Back to the Chapter [Overview](Overview.md)
 

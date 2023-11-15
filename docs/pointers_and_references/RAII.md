@@ -23,3 +23,15 @@ Shows how is done now
 Cover other advanced modern C++ topics (e.g. C++ 17, 20, 23) because the idea is to teach how to write code right.
 If cppfront does not have a specific syntax, then use modern C++.
 
+
+
+
+## Next
+
+To the [next Chapter](Pointe_strings.md).
+
+To the [previous Chapter](Memory_safety.md).
+
+Back to Tutorial [home](../README.md)
+
+Back to the Chapter [Overview](Overview.md)

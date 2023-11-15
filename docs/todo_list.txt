@@ -102,7 +102,7 @@ Also to consider:
 │   ├── Parameters.md
 │   ├── Lambdas.md
 │   ├── Scope_Lifetime.md
-│   └── functional_prog.md
+│   └── Functional_prog.md
 ├── user_defined_types
 │   ├── Overview.md
 │   ├── Overvie_new_syntax_type.md
@@ -116,7 +116,7 @@ Also to consider:
 │   └── Templates_concepts.md
 ├── advanced_topics
 │   ├── Overview.md
-│   ├── Packages.md **************** to create
+│   ├── Packages.md
 │   ├── Modules.md
 │   ├── Recursion.md
 │   ├── Threads.md

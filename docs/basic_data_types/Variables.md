@@ -40,7 +40,7 @@ If cppfront does not have a specific syntax, then use modern C++.
 
 To the [next Chapter](Operators.md).
 
-To the [previous Chapter](basic_types.md).
+To the [previous Chapter](Basic_types.md).
 
 Back to Tutorial [home](../README.md)
 

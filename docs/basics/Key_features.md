@@ -3,7 +3,7 @@
 
 Back to Tutorial [home](../README.md)
 
-Back to the Chapter [Overview](basics/Overview.md)
+Back to the Chapter [Overview](Overview.md)
 
 ## Interoperability
 
@@ -1033,7 +1033,7 @@ There are some important open points:
 
 ## Next
 
-To the [next Chapter](basic_data_types/Overview.md).
+To the [next Chapter](../basic_data_types/Overview.md).
 
 To the [previous Chapter](First_Program.md).
 

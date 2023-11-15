@@ -1,13 +1,13 @@
 # Overview of the Appendix!
 
-Back to [home](../readme.md)
+Back to [home](../README.md)
 
 ![Tutorial Under Construction](../TutorialUnderConstruction.png)
 
 ## Content
 
-* [Debug](appendix/Debug.md)
-* [CMake](appendix/CMake.md)
-* [#include "cpp2util.h"](appendix/include_cpp2util.md)
+* [Debug](Debug.md)
+* [CMake](CMake.md)
+* [#include "cpp2util.h"](include_cpp2util.md)
 
 ## Brief Description

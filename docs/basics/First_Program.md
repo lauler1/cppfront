@@ -1,7 +1,7 @@
 # Crafting Your First Cppfront Application
 
 
-Back to Tutorial [home](../readme.md)
+Back to Tutorial [home](../README.md)
 
 Back to the Chapter [Overview](Overview.md)
 
@@ -96,7 +96,7 @@ To the [next Chapter](Key_features.md). {style=text-align:center}
 
 To the [previous Chapter](Installation_and_compilation.md).
 
-Back to Tutorial [home](../readme.md)
+Back to Tutorial [home](../README.md)
 
 Back to the Chapter [Overview](Overview.md)
 

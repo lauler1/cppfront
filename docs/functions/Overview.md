@@ -1,6 +1,6 @@
 # Overview of the Chapter: Functions
 
-Back to [home](../readme.md)
+Back to [home](../README.md)
 
 ![Tutorial Under Construction](../TutorialUnderConstruction.png)
 

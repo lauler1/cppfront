@@ -1,18 +1,18 @@
 # Overview of the Chapter: Advanced Topics![Tutorial Under Construction](../TutorialUnderConstruction.png)
 
-Back to [home](../readme.md)
+Back to [home](../README.md)
 
 ![](../TutorialUnderConstruction.png)
 
 ## Content
 
-* [Modules (replacement for #include)](advanced_topics/Modules.md)
-* [Recursion](advanced_topics/Recursion.md)
-* [Threads (atomic)](advanced_topics/Threads.md)
-* [Network](advanced_topics/Network.md)
+* [Modules (replacement for #include)](Modules.md)
+* [Recursion](Recursion.md)
+* [Threads (atomic)](Threads.md)
+* [Network](Network.md)
 
 ## Brief Description
-* [Modules](advanced_topics/Modules.md)
-* [Recursion](advanced_topics/Recursion.md)
-* [Threads](advanced_topics/Threads.md)
-* [Network](advanced_topics/Network.md)
+* [Modules](Modules.md)
+* [Recursion](Recursion.md)
+* [Threads](Threads.md)
+* [Network](Network.md)

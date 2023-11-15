@@ -1,14 +1,14 @@
 # Overview of the Chapter: Diving into Cppfront Basics
 
-Back to [home](../readme.md)
+Back to [home](../README.md)
 
 ## Content
 
-* [Introduction to Cppfront Language](basics/Introduction_Cppfront_Language.md)
-* [Cppfront vs. Rust - A Comparative Study](basics/Cppfront_VS_Rust.md)
-* [Getting Started with Cppfront](basics/Installation_and_compilation.md)
-* [Crafting Your First Cppfront Program](basics/First_Program.md)
-* [Interoperability and Key Features of Cppfront](basics/Key_features.md)
+* [Introduction to Cppfront Language](Introduction_Cppfront_Language.md)
+* [Cppfront vs. Rust - A Comparative Study](Cppfront_VS_Rust.md)
+* [Getting Started with Cppfront](Installation_and_compilation.md)
+* [Crafting Your First Cppfront Program](First_Program.md)
+* [Interoperability and Key Features of Cppfront](Key_features.md)
 
 ## Brief Description
 

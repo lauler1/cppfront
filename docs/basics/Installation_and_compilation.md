@@ -1,7 +1,7 @@
 # Getting Started with Cppfront: Setup and Beyond
 
 
-Back to Tutorial [home](../readme.md)
+Back to Tutorial [home](../README.md)
 
 Back to the Chapter [Overview](Overview.md)
 
@@ -146,6 +146,6 @@ To the [next Chapter](First_Program.md). {style=text-align:center}
 
 To the [previous Chapter](Cppfront_VS_Rust.md).
 
-Back to Tutorial [home](../readme.md)
+Back to Tutorial [home](../README.md)
 
 Back to the Chapter [Overview](Overview.md)

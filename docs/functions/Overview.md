@@ -7,9 +7,10 @@ Back to [home](../README.md)
 ## Content
 
 * [Declaration and definition](Declaration.md)
-* [in, out, inout: parameters](parameters.md)
-* [lambdas](lambdas.md)
+* [in, out, inout: parameters](Parameters.md)
+* [lambdas](Lambdas.md)
 * [Scope and Lifetime](Scope_Lifetime.md)
+* [Functional Programming](Functional_prog.md)
 
 ## Brief Description
 

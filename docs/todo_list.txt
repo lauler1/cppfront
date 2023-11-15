@@ -58,3 +58,74 @@ Also to consider:
 - [ ] https://changkun.de/modern-cpp/pdf/modern-cpp-tutorial-en-us.pdf
 
 
+# Structure
+
+├── README.md
+├── sidebar.md
+├── todo_list.txt
+├── index.html
+├── basics
+│   ├── Overview.md
+│   ├── Introduction_Cppfront_Language.md
+│   ├── Cppfront_VS_Rust.md
+│   ├── Installation_and_compilation.md
+│   ├── First_Program.md
+│   └── Key_features.md
+├── basic_data_types
+│   ├── Overview.md
+│   ├── Basic_types.md
+│   ├── Variables.md
+│   ├── Operators.md
+│   ├── Automatic_type.md
+│   └── Strings.md
+├── containers
+│   ├── Overview.md
+│   ├── Arrays_Matrices.md
+│   ├── Vectors.md
+│   ├── Tuples.md
+│   └── Ranges_Views.md
+├── control_statements
+│   ├── Overview.md
+│   ├── Introduction_Controls.md
+│   ├── Selection.md
+│   └── Repetition.md
+├── pointers_and_references
+│   ├── Overview.md
+│   ├── Introduction.md
+│   ├── Memory_safety.md
+│   ├── RAII.md
+│   ├── Pointe_strings.md
+│   └── Conversions.md
+├── functions
+│   ├── Overview.md
+│   ├── Declaration.md
+│   ├── Parameters.md
+│   ├── Lambdas.md
+│   ├── Scope_Lifetime.md
+│   └── functional_prog.md
+├── user_defined_types
+│   ├── Overview.md
+│   ├── Overvie_new_syntax_type.md
+│   ├── Introduction_OOP.md
+│   ├── Constructors_destructors.md
+│   ├── Copy.md
+│   └── Move.md
+├── generics
+│   ├── Overview.md
+│   ├── Templates.md
+│   └── Templates_concepts.md
+├── advanced_topics
+│   ├── Overview.md
+│   ├── Packages.md **************** to create
+│   ├── Modules.md
+│   ├── Recursion.md
+│   ├── Threads.md
+│   └── Network.md
+└── appendix
+    ├── Overview.md
+    ├── Debug.md
+    ├── CMake.md
+    └── Include_cpp2util.md
+
+
+

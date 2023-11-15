@@ -6,10 +6,10 @@ Back to [home](../README.md)
 
 ## Content
 
-* [templates](templates.md)
+* [Templates](Templates.md)
 	* simple example
 	* ref to github example pointed by sutter
-* [templates concepts](templates_concepts.md)
+* [Templates Concepts](Templates_concepts.md)
 	* simple example
 	* replacing Interfaces by Concepts
 

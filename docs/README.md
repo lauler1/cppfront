@@ -13,7 +13,7 @@ The main reference for this tutorial is the [**GitHub repository of Cppfront**](
 It has two main folders:
  - cppfront/ The cppfront tool submodule from [github cppfront](https://github.com/hsutter/cppfront). Follow the instructions there.
  - [proj/](https://github.com/lauler1/cppfront/tree/main/proj) A set of example projects in individual sub-folders. Each sub-folder contains a readme.md.
- - tutorial An introduction guide to cppfront.
+ - docs An [introduction guide to cppfront](https://lauler1.github.io/cppfront/#/).
 
 The `init.sh` is used to create the alias to call cppfront from any individual sub-folder. Run init.sh in any new terminal session before using cppfront.
 

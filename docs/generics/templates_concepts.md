@@ -74,7 +74,137 @@ int main() {
 }
 ```
 
+### Other way
 
+See https://www.reachablecode.com/2019/06/09/concept-based-interfaces/
+
+
+```c++
+#include <iostream>
+
+#include <concepts>
+
+ 
+
+template <typename T, typename T1>
+
+concept Shape = requires(const T& t)
+
+{
+
+    { t.area() } ->std::convertible_to<T1>;
+
+};
+
+ 
+
+template <typename T, typename T1>
+
+struct ShapeBase
+
+{
+
+    ShapeBase() { static_assert(Shape<T, T1>); }
+
+};
+
+ 
+
+template <typename T>
+
+struct Circle : ShapeBase<Circle<T>, T>
+
+{
+
+    Circle(T r): radius{r}{    };
+
+    T area() const;
+
+    //T area() const {return 1;};
+
+    T radius;
+
+};
+
+ 
+
+template <typename T>
+
+T Circle<T>::area() const {return 1;};
+
+ 
+
+ 
+
+int main()
+
+{
+
+    Circle<float> c = {1};
+
+    return 0;
+
+}
+```
+
+### Other way
+
+
+```c++
+#include <iostream>
+
+#include <concepts>
+
+ 
+
+template <typename T, typename R>
+
+concept Shape = requires(const T& t)
+
+{
+
+    { t.area() } ->std::convertible_to<R>;
+
+};
+
+ 
+
+template <typename T>
+
+struct Rectangle
+
+{
+
+    Rectangle(T b, T h) : base{b}, height{h}{
+
+        static_assert(Shape<decltype(*this), T>);
+
+    }
+
+    T area() {return float(base * height);};
+
+    T base;
+
+    T height;
+
+};
+
+ 
+
+// Type your code here, or load an example.
+
+int main() {
+
+    Rectangle<int> rec = {3,2};
+
+    std::cout << ">> " << rec.area() <<"\n";
+
+    std::cout << "End\n";
+
+    return 0;
+
+}
+```
 
 ## New syntax cppfront
 

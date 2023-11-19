@@ -11,19 +11,63 @@ Back to the Chapter [Overview](Overview.md)
 
 How it is done in C and C++ 98 and modern C++
 
-## New syntax cppfront
+### [[nodiscard]] by default
 
-Shows how is done now
+C++17 introduced the [[nodiscard]] attribute. Applying this attribute to a function signals that its return value shouldn't be overlooked, prompting the compiler to issue a warning. This can aid in averting security, memory leak, and performance-related bugs. While using this attribute consistently can be inconvenient, Cppfront makes [[nodiscard]] the default behavior, eliminating the need for explicit annotations.
 
+### Function, Lambda, and Block Statements
 
-## How is the code transpiled
+In Cppfront, lambdas are functions without names. It is possible to pass parameters to a block. If a function, lambda, or block statement has a single line, it can omit the `{` and `}`.
 
-## Advanced topics
+Cppfront:
+```c++
+f:(x: int = init) = { ... }     // x is a parameter to the function
+f:(x: int = init) = statement;  // same, { } is implicit
+ 
+ :(x: int = init) = { ... }     // x is a parameter to the lambda
+ :(x: int = init) = statement;  // same, { } is implicit
+ 
+  (x: int = init)   { ... }     // x is a parameter to the block
+  (x: int = init)   statement;  // same, { } is implicit
+ 
+                    { ... }     // x is a parameter to the block
+                    statement;  // same, { } is implicit
+```
 
-Cover other advanced modern C++ topics (e.g. C++ 17, 20, 23) because the idea is to teach how to write code right.
-If cppfront does not have a specific syntax, then use modern C++.
+### Handling Multiple Return Values
+
+Cppfront allows functions to return multiple values. Each return parameter must be explicitly named, and they need to be initialized within the function body, or else the Cppfront transpiler will generate an error. The following example demonstrates returning multiple values including 'valid', 'error', and 'val':
+
+Cppfront:
+```c++
+myfunc: (opt: int) -> (valid: bool, error: int, val: std::string) = {
+    if(opt) {
+        valid = true;
+        error = 0;
+        val = "This is the value";
+    } else {
+        valid = false;
+        error = 1;
+        val = "Error";
+    }
+}
+
+main: () = {
+    answer := myfunc(0);
+    std::cout << "valid = (answer.valid)$, error = (answer.error)$, val = (answer.val)$\n";
+    answer = myfunc(1);
+    std::cout << "valid = (answer.valid)$, error = (answer.error)$, val = (answer.val)$\n";
+}
+```
+
 
 ## TODO
+
+[[nodiscard]] by default
+
+Common format Function, Lambda, and Block Statements
+
+Handling Multiple Return Values
 
 Also Variadic Template Functions --> this is C++ standard, nothing special in Cppfront so far.
 

@@ -12,10 +12,6 @@ Back to the Chapter [Overview](Overview.md)
 Main source file:///C:/Users/auler/Downloads/cpp2/Cooperative_cpp_evolution_CppCon_2023_-_Sutter.pdf which is downloaded.
 
 
-TODO What is a meta function, see https://iamsorush.com/posts/cpp-meta-function/
-
-TODO Metaclass functions: https://www.joyk.com/dig/detail/1683308316270591 Header reflect.h: Initial support for reflection API, and implementing the first 10 working metafunctions
-
 See [Cppfront-spring-update](https://herbsutter.com/2023/04/30/Cppfront-spring-update/) page.
 
 including unifying all special member functions as `operator=`.
@@ -91,17 +87,32 @@ How it is done in C and C++ 98 and modern C++
 
 ## New syntax cppfront
 
-Shows how is done now
+### New unified type system
+
+Unified format has `name: <@metafunction> type = {...}` syntax, where metafunction can be:
+
+- **@interface** An abstract class having only pure virtual functions.
+- **@polymorphic_base** A pure polymorphic base type that is not copyable or movable, and whose destructor is either public+virtual or protected+nonvirtual.
+- **@ordered** A totally ordered type with `operator<=>` that implements `std::strong_ordering`
+	- Also: @weakly_ordered, @partially_ordered.
+- **@copyable** A type that has copy/move construction/assignment.
+- **@basic_value** A `copyable` type that has public default construction and destruction (generated if not user-written) and no protected or virtual functions.
+- **@value** An ordered `basic_value`.
+	- Also: @weakly_ordered_value, @partially_ordered_value.
+- **@struct** A `basic_value` with all public members, no virtual functions, and no user written `operator=`.
+- **@enum** Same safeties as `enum class` + only valid values.
+- **@flag_enum** Same as `@enum` but as flags (bit fields), add up them into a variable using the `|` operator.
+- **@union** Same usability as `union`, same safety as `variant`. C/C++ unions are not supported in pure mode (using `-p` option).
 
 
-## How is the code transpiled
 
-## Advanced topics
+# TODO
 
-Cover other advanced modern C++ topics (e.g. C++ 17, 20, 23) because the idea is to teach how to write code right.
-If cppfront does not have a specific syntax, then use modern C++.
+- Overloading of operator
 
+## Open Points
 
+- Complete cover of operators overload
 
 
 ## Next

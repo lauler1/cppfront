@@ -17,9 +17,16 @@ Delve into the world of Cppfront's primitive types, examining the essentials lik
 	* float double
 	* void
 
-	> TO DO
-	
-	
+### Basic types
+
+Cppfront has introduced a set of primitive types derived from the C++ language's basic types and its standard library. These can be utilized without importing any additional libraries.
+
+- New signed types (from std): i8, i16, i32, i64
+- New unsigned types (from std): u8, u16, u32, u64
+- Also (from primitive): ushort, ulong, longlong, ulonglong, longdouble
+
+
+## TODO
 
 	To cover not only the all basic types but all numbers sufix with specific size. Also std numbers.
 

@@ -35,17 +35,28 @@ fun: (v : _) -> std::string = {
 
 ## New syntax cppfront
 
-Shows how is done now
+### Bounds check
 
+Cppfront automatically performs runtime checks for bounds violations when accessing elements of arrays, vectors, lists, and similar data structures. In the event of an out-of-bounds access, the application is terminated.
 
-## How is the code transpiled
+Cppfront
+```c++
+main: () -> int
+= {
+	a: std::array<char, 6> = ("hallo");
+    std::cout << a[-1] << "\n"; // aborts
+	
+    sv: std::string_view = ("Hallo");
+    std::cout << sv[5] << "\n"; // aborts
 
-## Advanced topics
+    v: std::vector = ("str1", "str2");
+    std::cout << v[2] << "\n"; // aborts
+}
+```
 
-Cover other advanced modern C++ topics (e.g. C++ 17, 20, 23) because the idea is to teach how to write code right.
-If cppfront does not have a specific syntax, then use modern C++.
+## TODO
 
-
+Bounds check. Cppfront automatically performs runtime checks for bounds violations when accessing elements of arrays, vectors, lists, and similar data structures.
 
 
 ## Next

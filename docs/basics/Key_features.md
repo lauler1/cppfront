@@ -115,7 +115,7 @@ main: () -> int = {
 }
 ```
 
-See also: 
+See also [variables](../basic_data_types/Variables.md).
 
 ### Order independence
 
@@ -135,6 +135,8 @@ MyType: type = {
 
 println: (myvar:) = { std::cout << myvar;}
 ```
+
+See also [variables](../basic_data_types/Variables.md).
 
 ### wildcard `_`
 
@@ -166,6 +168,8 @@ test: (d:) = {
 ```
 
 However, deduced type is only allowed for local variables (e.g., inside functions) or within classes. It is not allowed for global variables or variables declared at the namespace scope.
+
+See also [variables](../basic_data_types/Variables.md).
 
 #### “don’t care” wildcard
 
@@ -202,6 +206,8 @@ main: () = {
 
 Adding `_ = myvar`; afterward naturally makes that the last use of `myvar` instead. Problem solved, and it self-documents that the code really meant to ignore a function’s output value.
 
+See also [variables](../basic_data_types/Variables.md).
+
 ### All variables must be initialized:
 
 All variables in Cppfront must be initialized; failing to do so will result in a compiler error.
@@ -215,7 +221,11 @@ variable must be initialized on every branch path
  ==> program violates initialization safety guarantee - see previous errors
 ```
 It is not allowed to initialize a pointer with `nullptr`.
-There are some discussion how shall be raw-pointers handled. See: [cppfront issues 192](https://github.com/hsutter/cppfront/issues/192) and  [cppfront discussions 646](https://github.com/hsutter/cppfront/discussions/646)
+There are some discussion how shall be raw-pointers handled. See: [cppfront issues 192](https://github.com/hsutter/cppfront/issues/192) and  [cppfront discussions 646](https://github.com/hsutter/cppfront/discussions/646).
+
+See also [variables](../basic_data_types/Variables.md).
+
+See also [introduction](../pointers_and_references/Introduction.md) to pointers.
 
 ### Non-local objects are `const` by default
 
@@ -265,6 +275,8 @@ class T {
 ...
 ```
 
+See also [variables](../basic_data_types/Variables.md).
+
 ### Basic types
 
 Cppfront has introduced a set of primitive types derived from the C++ language's basic types and its standard library. These can be utilized without importing any additional libraries.
@@ -272,6 +284,8 @@ Cppfront has introduced a set of primitive types derived from the C++ language's
 - New signed types (from std): i8, i16, i32, i64
 - New unsigned types (from std): u8, u16, u32, u64
 - Also (from primitive): ushort, ulong, longlong, ulonglong, longdouble
+
+See also [basic types](../basic_data_types/Basic_types.md).
 
 ### The `new` Syntax in Cppfront
 
@@ -300,6 +314,10 @@ r1's type = St10unique_ptrIiSt14default_deleteIiEE
 ```
 In Cppfront, the delete operator is not present, and raw pointers do not have the capability to own memory. Additionally, pointer arithmetic is not permitted in Cppfront.
 
+See also [constructors and destructors](../user_defined_types/Constructors_destructors.md).
+
+See also [introduction](/pointers_and_references/Introduction.md) to pointers.
+
 ### `in`, `out` and `inout`
 
 Cppfront has no references `&`.
@@ -324,6 +342,8 @@ f3: ( out x: )     = {x=1;}  //Must be initialized
 f4: ( move x: )    = {}
 f5: ( forward x: ) = {}
 ```
+
+See also [parameters](../functions/Parameters.md) of functions.
 
 ### Move on Last Use
 
@@ -367,10 +387,13 @@ To navigate around this issue, there are two alternatives:
 
 Both strategies are viable. However, in the given example, employing the first solution makes the second one untenable. This is because, after `myvar` is moved, it resides in an unspecified state and its continued use within `main:()` is not guaranteed to be valid.
 
+See also [parameters](../functions/Parameters.md) of functions.
+
 ### [[nodiscard]] by default
 
 C++17 introduced the [[nodiscard]] attribute. Applying this attribute to a function signals that its return value shouldn't be overlooked, prompting the compiler to issue a warning. This can aid in averting security, memory leak, and performance-related bugs. While using this attribute consistently can be inconvenient, Cppfront makes [[nodiscard]] the default behavior, eliminating the need for explicit annotations.
 
+See also [declaration](../functions/Declaration.md).
 
 ### Operators
 
@@ -412,6 +435,8 @@ Note the explicit use of the param `this`.
 See also [C++ operator overloading](https://en.cppreference.com/w/cpp/language/operators) for more details on this topic.
 > Note: As of the time this tutorial was written, Cppfront did not support full creation of operators.
 
+See also [constructors and destructors](../user_defined_types/Constructors_destructors.md).
+
 ### Unary Operators are Suffixes
 
 In Cppfront, unary [operators are Suffixes](https://github.com/hsutter/cppfront/wiki/Design-note%3A-Postfix-operators).
@@ -427,6 +452,8 @@ Cppfront:
     c : int = b*;   // c gets the value pointed by b
     std::cout << c<< "\n"; // result = 2
 ```
+
+See also [operators.md](../basic_data_types/Operators.md).
 
 ### Explicit `this` Reference
 
@@ -477,6 +504,8 @@ And will result to:
 7
 ```
 
+See also [constructors and destructors](../user_defined_types/Constructors_destructors.md).
+
 #### Static Members
 
 Methods that don't include `this` are treated as static members and consequently, they cannot access the instance variables of the class. To define static const members in a class, the alias syntax can be employed.
@@ -498,11 +527,13 @@ class MyType {
 }
 ```
 
+See also [Introduction to OOP](../user_defined_types/Introduction_OOP.md).
+
 > Note: As of the time this tutorial was written, Cppfront did not support the creation of [static variables](https://github.com/hsutter/cppfront/issues/522).
 
 ### Alias
 
-Aliases are defined using the '==' symbol and are immutable, meaning their values cannot be altered.
+Aliases are defined using the ':==' symbol and are immutable, meaning their values cannot be altered.
 
 In Cppfront:
 ```c++
@@ -511,6 +542,8 @@ func_alias :== main;             // Alias for a function
 type_alias: type == std::string; // Alias for a type
 nspace_alias: namespace == std;  // Alias for a namespace
 ```
+
+See also [operators.md](../basic_data_types/Operators.md).
 
 ### Constructors and destructors
 
@@ -539,6 +572,8 @@ main: () ={
 }
 ```
 
+See also [constructors and destructors](../user_defined_types/Constructors_destructors.md).
+
 ### Inheritance
 
 Inheritance is done byt defining `this:` of the derived class. See example of a derived class Cyborg which inherits from interface Human:
@@ -566,6 +601,8 @@ paul: Cyborg = ("Paul");
 paul.speak();
 }
 ```
+
+See also [Introduction to OOP](../user_defined_types/Introduction_OOP.md).
 
 ### `that` parameter
 
@@ -612,6 +649,8 @@ main: () = {
 }
 ```
 
+See also [constructors and destructors](../user_defined_types/Constructors_destructors.md).
+
 ### Function, Lambda, and Block Statements
 
 In Cppfront, lambdas are functions without names. It is possible to pass parameters to a block. If a function, lambda, or block statement has a single line, it can omit the `{` and `}`.
@@ -630,6 +669,12 @@ f:(x: int = init) = statement;  // same, { } is implicit
                     { ... }     // x is a parameter to the block
                     statement;  // same, { } is implicit
 ```
+
+See also [declaration](../functions/Declaration.md) of functions.
+
+See also [lambdas](../functions/Lambdas.md).
+
+See also [scope lifetime](../functions/Scope_Lifetime.md).
 
 #### Captured Variables
 
@@ -684,6 +729,8 @@ Cppfront:
 
 > Note: At the moment of writing this tutorial, there was some discussion about how should be the [syntax of Captures](https://github.com/hsutter/cppfront/discussions/771) (e.g., prefix or suffix `$`).
 
+See also [Strings in Cppfront](Strings.md).
+
 #### Specifying Parameter Types Explicitly
 
 In Cppfront, you have the ability to specify the type of function parameter you wish to use when calling overloaded functions.
@@ -700,6 +747,8 @@ main: () = {
     myfunc(:u32 = 1);  // Calls version with u32
 }
 ```
+
+See also [parameters](../functions/Parameters.md) of functions.
 
 ### Universal Function Call Syntax (UFCS)
 
@@ -720,6 +769,8 @@ _ = fd.fclose();               // Instead of fclose(fd)
 // Note the '_' to force discards the results due to ‘nodiscard’ [-Wunused-result].
 }
 ```
+
+See also [parameters](../functions/Parameters.md) of functions.
 
 See also: https://github.com/hsutter/cppfront/discussions/811
 
@@ -751,10 +802,9 @@ In order to improve the quality of information sent to stderr, use the option `-
 
 Asserts can be used everywhere, e.g. `[[assert: !(pt1 == pt2)]]`.
 
+See also [parameters](../functions/Parameters.md) of functions.
+
 ### `<=>` three-way comparison ("spaceship")
-
-> TODO
-
 
 Directly express comparison intent, eliminate boilerplate & errors See P0515. This operator was introduced to c++20 standard. It is not used directly to compare but to generate the comparison object for all `==, !=, <, >, <=, >=` cases.
 
@@ -776,6 +826,8 @@ main: () ={
     [[assert: !(pt1 >= pt2)]]
 }
 ```
+
+See also [operators](../basic_data_types/Operators.md).
 
 ### Named break and continue
 
@@ -814,6 +866,8 @@ while_break_outer: () =
 }
 ```
 
+See also [repetition](../control_statements/Repetition.md).
+
 ### New unified type system
 
 Unified format has `name: <@metafunction> type = {...}` syntax, where metafunction can be:
@@ -831,6 +885,7 @@ Unified format has `name: <@metafunction> type = {...}` syntax, where metafuncti
 - **@flag_enum** Same as `@enum` but as flags (bit fields), add up them into a variable using the `|` operator.
 - **@union** Same usability as `union`, same safety as `variant`. C/C++ unions are not supported in pure mode (using `-p` option).
 
+See also [unified type](../user_defined_types/Overvie_new_syntax_type.md).
 
 ### Corollary: Simplified `for` each
 
@@ -844,6 +899,8 @@ for items do (item) {
 }
 ```
 
+to this:
+
 C++
 ```c++
 for items do: (item) = {
@@ -852,8 +909,9 @@ for items do: (item) = {
 }
 ```
 
-to this, which is the same except that it removes : and =
+which is the same except that it removes `:` and `=`.
 
+See also [repetition](../control_statements/Repetition.md).
 
 ### Keywords `is` and `as`, and pattern matching
 
@@ -866,6 +924,7 @@ specific type.
 
 [P2392: Pattern matching using is and as](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2022/p2392r2.pdf) is the ISO C++ committee paper.
 
+See also [operators](../basic_data_types/Operators.md).
 
 #### `is`
 
@@ -995,6 +1054,10 @@ main: () -> int
 }
 ```
 
+See also [Arrays](../containers/Arrays_Matrices.md) and [Arrays](../containers/Vectors.md.md).
+
+See also [Strings](../basic_data_types/Strings.md).
+
 ### Handling Multiple Return Values
 
 Cppfront allows functions to return multiple values. Each return parameter must be explicitly named, and they need to be initialized within the function body, or else the Cppfront transpiler will generate an error. The following example demonstrates returning multiple values including 'valid', 'error', and 'val':
@@ -1020,6 +1083,8 @@ main: () = {
     std::cout << "valid = (answer.valid)$, error = (answer.error)$, val = (answer.val)$\n";
 }
 ```
+
+See also [declaration and definition](../functions/Declaration.md) of functions 
 
 ## Open Points
 

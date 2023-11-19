@@ -1,4 +1,4 @@
-# templates
+# Templates Concepts
 
 
 Back to Tutorial [home](../README.md)
@@ -218,7 +218,21 @@ Shows how is done now
 Cover other advanced modern C++ topics (e.g. C++ 17, 20, 23) because the idea is to teach how to write code right.
 If cppfront does not have a specific syntax, then use modern C++.
 
+## TODO
 
+How is the cppfront equivalent for `CONCEPT auto x`, e.g. `foo(std::convertible_to<bool> auto val)...` `std::convertible_to<bool> auto global_val`.
+
+`static_assert(std::same_as<decltype(x), decltype(y)>);`
+
+No `#` Preprocessor in Pure Cppfront
+
+What is a meta function, see https://iamsorush.com/posts/cpp-meta-function/
+
+Metaclass functions: https://www.joyk.com/dig/detail/1683308316270591 Header reflect.h: Initial support for reflection API, and implementing the first 10 working metafunctions
+
+## Open Points
+
+- [Replacing the preprocessor with reflection and generation](https://github.com/hsutter/cppfront/discussions/737)
 
 
 ## Next

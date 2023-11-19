@@ -9,21 +9,41 @@ Back to the Chapter [Overview](Overview.md)
 
 ## Background C and C++
 
-How it is done in C and C++ 98 and modern C++
+### The `new` Syntax in Cppfront
 
-## New syntax cppfront
+In Cppfront, the `new` syntax defaults to returning a `std::unique_ptr`. Interestingly, if you specify the type of a variable as either `std::shared_ptr` or `std::unique_ptr<int>`, the `new<T>` syntax will adjust its return type accordingly.
 
-Shows how is done now
+Here's an illustrative example in Cppfront:
+
+```c++
+main: () = {
+    p1:= new<int>(0);                     // Defaults to std::unique_ptr<int>
+    q1: std::shared_ptr<int> = new<int>(0);  // Explicitly std::shared_ptr<int>
+    r1: std::unique_ptr<int> = new<int>(0);  // Explicitly std::unique_ptr<int>
+
+    std::cout << "p1's type = (typeid(p1).name())$\n";
+    std::cout << "q1's type = (typeid(q1).name())$\n";
+    std::cout << "r1's type = (typeid(r1).name())$\n";
+}
+```
+
+When executed, the program produces:
+
+```bash
+p1's type = St10unique_ptrIiSt14default_deleteIiEE
+q1's type = St10shared_ptrIiE
+r1's type = St10unique_ptrIiSt14default_deleteIiEE
+```
+In Cppfront, the delete operator is not present, and raw pointers do not have the capability to own memory. Additionally, pointer arithmetic is not permitted in Cppfront.
 
 
-## How is the code transpiled
-
-## Advanced topics
-
-Cover other advanced modern C++ topics (e.g. C++ 17, 20, 23) because the idea is to teach how to write code right.
-If cppfront does not have a specific syntax, then use modern C++.
 
 
+## TODO
+
+pointer and nullpter: It is not allowed to initialize a pointer with `nullptr` in cppfront.
+
+In Cppfront, the delete operator is not present, and raw pointers do not have the capability to own memory. Additionally, pointer arithmetic is not permitted in Cppfront.
 
 
 ## Next

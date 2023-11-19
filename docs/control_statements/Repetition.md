@@ -13,17 +13,72 @@ How it is done in C and C++ 98 and modern C++
 
 ## New syntax cppfront
 
-Shows how is done now
+### Named break and continue
 
+Cppfront:
+```c++
+while_continue_outer: () =
+{
+    i := 0;
+    outer: while i<3 next i++ {
+        j := 0;
+        while j<3 next j++ {
+            std::cout << i << j << " ";
+            if j == 1 {
+                continue outer;
+            }
+            std::cout << "inner ";
+        }
+        std::cout << "outer ";
+    }
+}
 
-## How is the code transpiled
+while_break_outer: () =
+{
+    i := 0;
+    outer: while i<3 next i++ {
+        j := 0;
+        while j<3 next j++ {
+            std::cout << i << j << " ";
+            if j == 1 {
+                break outer;
+            }
+            std::cout << "inner ";
+        }
+        std::cout << "outer ";
+    }
+}
+```
 
-## Advanced topics
+### Corollary: Simplified `for` each
 
-Cover other advanced modern C++ topics (e.g. C++ 17, 20, 23) because the idea is to teach how to write code right.
-If cppfront does not have a specific syntax, then use modern C++.
+Removed `:` and `=` from `for` each.
 
+Cppfront
+```c++
+for items do (item) {
+    x := local + item;
+    // ...
+}
+```
 
+to this:
+
+C++
+```c++
+for items do: (item) = {
+    x := local + item;
+    // ...
+}
+```
+
+which is the same except that it removes `:` and `=`.
+
+## TODO
+
+Corollary: Simplified `for` each. Removed `:` and `=` from `for` each.
+
+Named break and continue
 
 
 ## Next

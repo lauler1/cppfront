@@ -1,4 +1,4 @@
-# Copy (constructor and assignment)
+# Copy and Move (constructor and assignment)
 
 
 Back to Tutorial [home](../README.md)
@@ -28,7 +28,7 @@ If cppfront does not have a specific syntax, then use modern C++.
 
 ## Next
 
-To the [next Chapter](Move.md).
+To the [next Chapter](Exception.md).
 
 To the [previous Chapter](Constructors_destructors.md).
 

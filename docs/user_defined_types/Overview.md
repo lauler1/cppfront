@@ -22,8 +22,8 @@ Back to [home](../README.md)
 	* Inheritance and Polymorphism
 	* Abstract Classes
 * [Constructors and destructors](Constructors_destructors.md)
-* [Copy (constructor and assignment)](Copy.md)
-* [Move (constructor and assignment)](Move.md)
+* [Copy and Move (constructor and assignment)](Copy_Move.md)
+* [Exception Handling](Exception.md)
 
 ## Brief Description
 

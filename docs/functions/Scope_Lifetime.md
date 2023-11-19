@@ -13,17 +13,28 @@ How it is done in C and C++ 98 and modern C++
 
 ## New syntax cppfront
 
-Shows how is done now
+### Function, Lambda, and Block Statements
 
+In Cppfront, lambdas are functions without names. It is possible to pass parameters to a block. If a function, lambda, or block statement has a single line, it can omit the `{` and `}`.
 
-## How is the code transpiled
+Cppfront:
+```c++
+f:(x: int = init) = { ... }     // x is a parameter to the function
+f:(x: int = init) = statement;  // same, { } is implicit
+ 
+ :(x: int = init) = { ... }     // x is a parameter to the lambda
+ :(x: int = init) = statement;  // same, { } is implicit
+ 
+  (x: int = init)   { ... }     // x is a parameter to the block
+  (x: int = init)   statement;  // same, { } is implicit
+ 
+                    { ... }     // x is a parameter to the block
+                    statement;  // same, { } is implicit
+```
 
-## Advanced topics
+## TODO
 
-Cover other advanced modern C++ topics (e.g. C++ 17, 20, 23) because the idea is to teach how to write code right.
-If cppfront does not have a specific syntax, then use modern C++.
-
-
+Common format Function, Lambda, and Block Statements
 
 
 ## Next

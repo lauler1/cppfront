@@ -1,4 +1,4 @@
-# templates
+# Templates
 
 
 Back to Tutorial [home](../README.md)
@@ -130,7 +130,7 @@ If cppfront does not have a specific syntax, then use modern C++.
 
 To the [next Chapter](Templates_concepts.md).
 
-To the [previous Chapter](../user_defined_types/Move.md).
+To the [previous Chapter](../user_defined_types/Exception.md).
 
 Back to Tutorial [home](../README.md)
 

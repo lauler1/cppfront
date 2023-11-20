@@ -1,0 +1,134 @@
+//#include <unordered_map>
+
+Test: type = {
+	
+    operator=: (out this, that) = {
+        name_ = that.name_;
+        testFunc_ = that.testFunc_;
+		std::cout << "Test2 Copy constructor\n";
+    }
+    operator=: (out this, move that) = {
+        name_ = that.name_;
+        testFunc_ = that.testFunc_;
+		std::cout << "Test2 Move constructor\n";
+    }
+	
+
+	operator=: (out this, move name: std::string, in testFunc: std::function<void()>) = {
+		name_ = name;
+		testFunc_ = testFunc;
+	}
+
+    run: (this) = {
+        std::cout << "Test2 Running test: " << name_ << std::endl;
+        testFunc_();
+    }
+
+    name_: std::string;
+    testFunc_: std::function<void()>;
+}
+
+class Test2 {
+public:
+    Test2(std::string name, std::function<void()> testFunc)
+        : name_(std::move(name)), testFunc_(std::move(testFunc)) {}
+
+    void run() const {
+        std::cout << "Test Running test: " << name_ << std::endl;
+        testFunc_();
+    }
+
+private:
+    std::string name_;
+    std::function<void()> testFunc_;
+};
+
+
+TestSuite: type = {
+
+    operator=: (out this, that) = {
+        name_ = that.name_;
+        tests_ = that.tests_;
+		std::cout << "TestSuite Copy constructor\n";
+    }
+    operator=: (out this, move that) = {
+        name_ = that.name_;
+        tests_ = that.tests_;
+		std::cout << "TestSuite Move constructor\n";
+    }
+	
+    operator=: (out this, in name: std::string, suiteFunc: std::function<void(std::add_lvalue_reference_t<TestSuite>)>) = {
+		name_ = name;
+		suiteFunc(this);
+	}
+
+    operator=:(out this, suiteFunc: std::function<void(TestSuite)>) = {
+        suiteFunc(this);
+
+    }
+
+    addTest: (inout this, move name: std::string, move testFunc: std::function<void()>) = {
+        _ = tests_.emplace_back(move name, move testFunc);
+    }
+
+    run: (this) = {
+        std::cout << "TestSuite Running suite: " << name_ << std::endl;
+		for tests_ do (test) {
+            test.run();
+        }
+    }
+
+    name_: std::string = "";
+    tests_: std::vector<Test> = ();
+}
+
+TestRunner: type = {
+	suites_: std::vector<TestSuite>;
+	
+    addSuite: (inout this, suite: TestSuite) = {
+        suites_.push_back(move suite);
+    }
+	
+    run: (this) = {
+		for suites_ do (suite) {
+            suite.run();
+        }
+    }
+}
+
+// Usage example
+TestRunner TEST;
+
+void suit1(TestSuite& suite) {
+    suite.addTest("Example Test 1.1", [] {
+        std::cout << "This is test case 1.1" << std::endl;
+    });
+
+    suite.addTest("Example Test 1.2", [] {
+        std::cout << "This is test case 1.2" << std::endl;
+    });
+};
+
+suit2: (inout suite: TestSuite) = {
+
+    suite.addTest("Example Test 2.1", :()={
+        std::cout << "This is test case 2.1" << std::endl;
+    });
+
+    suite.addTest("Example Test 2.2", :() = {
+        std::cout << "This is test case 2.2" << std::endl;
+    });
+}
+
+main: () -> int ={
+	
+	//test2: Test2 = ("asdgf", :()={std::cout << "testFunc_ running" << std::endl;});
+	//test2.run();
+
+    TEST.addSuite(TestSuite("Suite 1", suit1));
+
+    TEST.addSuite(TestSuite("Suite 2", suit2));
+
+    TEST.run();
+    return 0;
+}

@@ -72,6 +72,8 @@ Static Members
 
 Inheritance
 
+Namespaces?? Format `N: namespace = { ... }`. Unnamed namespaces `_: namespace = { ... }`
+
 
 ## Open Points
 

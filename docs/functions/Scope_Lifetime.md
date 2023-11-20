@@ -36,6 +36,8 @@ f:(x: int = init) = statement;  // same, { } is implicit
 
 Common format Function, Lambda, and Block Statements
 
+Also `std::function` ??? `std::forward` for injection of funtions as dependence for test mock
+
 
 ## Next
 

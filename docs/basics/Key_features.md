@@ -903,8 +903,8 @@ to this:
 
 C++
 ```c++
-for items do: (item) = {
-    x := local + item;
+for(auto& item: items) {
+    x = local + item;
     // ...
 }
 ```

@@ -1,4 +1,6 @@
-# This is a simple test
+# This is a simple unit test framework written in Cppfront.
+
+https://www.youtube.com/watch?v=LD0RPjjShPw
 
 
 

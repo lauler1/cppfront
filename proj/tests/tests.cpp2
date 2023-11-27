@@ -1,74 +1,51 @@
+#include <chrono>
 #include <iostream>
-#include <expected>
-#include <functional>
 
-enum class parse_error
-{
-    f1,
-    f2,
-    f3
-};
+Benchmark: type =  {
 
-std::expected<int, parse_error> safe_divide(int numerator, int denominator) {
-    std::cout << ">> safe_divide\n";
-    if (denominator == 0) return std::unexpected(parse_error::f1); // Error case
-    return numerator / denominator; // Success case
-}
 
-std::expected<int, parse_error> add_five(int x) {
-    std::cout << ">> add_five\n";
-    return x + 5;
-}
+    operator=: (out this, in name: std::string) = { //Constructor
+		name_ = name;
+        start_ = std::chrono::high_resolution_clock::now();
+        std::cout << "Starting benchmark for: " << name_ << std::endl;
+	}
 
-int add_two(int x) {
-    std::cout << ">> add_two\n";
-    return x + 2;
-}
-
-int my_add(int x, int y) {
-    std::cout << ">> my_add "<< x <<" "<< y <<"\n";
-    return x + y;
-}
-
-std::expected<int, parse_error> unexpected(parse_error e) {
-    std::cout << " >> unexpected\n";
-    return std::unexpected(parse_error::f3);
-
-}
-
-parse_error error(parse_error e) {
-    std::cout << " >> error\n";
-    return parse_error::f3;
-
-}
-
-int main() {
-    // Successful case:
-    std::expected<int, parse_error> result = safe_divide(10, 2)
-        .and_then(add_five)
-        .and_then(add_five) // Chaining operations successfully
-        .transform(std::bind(my_add, 11, std::placeholders::_1)) // Chaining operations successfully
-        .transform(add_two); // Chaining operations successfully
-        //.or_else(orelse); // Chaining operations successfully
-
-    if (result) {
-        std::cout << *result << std::endl; // Correct output: 15
+    operator=: (move this) = { //Destructor
+        end: = std::chrono::high_resolution_clock::now();
+        elapsed: std::chrono::duration<double> = end - start_;
+        std::cout << "Benchmark '" << name_ << "' finished. Elapsed time: " << elapsed.count() << "s\n";
     }
 
-    // Error case:
-    std::expected<int, parse_error> error_result = safe_divide(10, 0)
-        .and_then(add_five)
-        .and_then(add_five) // Chaining halts due to division by zero
-        .transform(std::bind(my_add, std::placeholders::_1, 10)) // Chaining operations successfully
-        .transform(add_two) // Chaining operations successfully
-        .or_else(unexpected); // Chaining operations successfully
-        //.transform_error(error); // Chaining operations successfully
+    name_: std::string;
+    start_ : std::chrono::time_point<std::chrono::high_resolution_clock> ;
+}
 
-    if (error_result) {
-        std::cout << *error_result << std::endl;
-    } else {
-        std::cout << "Error: " << *error_result << std::endl; // Error handling
-    }
+// Usage example
+void someFunctionToBenchmark() {
+    // Simulating some work
+    for (int i = 0; i < 100000; ++i) {
+        //std::cout << "."; 
+        }
+        std::cout << ".\n"; 
+}
 
+void doBenchmark(std::function<void(void)> bfunc){
+	auto a = Benchmark("Some Function Benchmark 2");
+	bfunc();
+}
+
+main: () -> int = {
+	//Option 1: Using a Benchmark Object and RAII to finish Benchmark
+    {
+        _:Benchmark=("Some Function Benchmark 1");
+        someFunctionToBenchmark();
+    } // The benchmark object goes out of scope here, ending the timing
+	
+	a:=123; // a variable to be captured by Lambda
+
+	//Option 2: Using a Lambda es the benchmark
+	doBenchmark(:() = {
+        std::cout << "This is test " << a$ << std::endl;
+    });
     return 0;
 }

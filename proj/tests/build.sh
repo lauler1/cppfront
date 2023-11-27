@@ -17,7 +17,7 @@ fi
 cppfront -a -in $1 tests.cpp2 -o out.cpp
 
 if [ $? -eq 0 ]; then
-	clang++ -I$CPPFRONTDIR/include/ -g -std=c++23 out.cpp -o out.out
+	g++ -I$CPPFRONTDIR/include/ -g -std=c++23 out.cpp -o out.out
 
 	if [ $? -eq 0 ]; then
 		echo -e "\nCompilation Ok."

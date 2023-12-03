@@ -16,7 +16,7 @@ Operators are the verbs of the programming language, enabling you to perform act
 	* Compound OperatorsI
 	* Increment Decrement
 
-How it is done in C and C++ 98 and modern C++
+
 
 ## New syntax cppfront
 

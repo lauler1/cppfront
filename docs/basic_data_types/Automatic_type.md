@@ -14,7 +14,6 @@ Embrace the convenience of type inference in Cppfront with `auto`, allowing the 
 	* auto
 	* decltype
 	
-How it is done in C and C++ 98 and modern C++
 
 ## New syntax cppfront
 

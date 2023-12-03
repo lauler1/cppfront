@@ -14,7 +14,7 @@ Strings are a fundamental aspect of any programming language, and Cppfront offer
 	* String types
 	* String format
 	
-How it is done in C and C++ 98 and modern C++
+
 
 
 Yes, you can construct a `std::string_view` from a `std::string` and vice versa, but there are some nuances to be aware of.

@@ -9,6 +9,68 @@ Back to the Chapter [Overview](basic_data_types/Overview.md)
 
 ## Background C and C++
 
+In C++, variables are named storage locations in the computer's memory, used to store data that can be modified during program execution. Each variable in C++ is associated with a specific type, which determines the size and layout of the variable's memory, the range of values that can be stored within that memory, and the set of operations that can be applied to the variable (See the [previous Chapter](Basic_types.md)).
+
+The new declaration syntax of Cppfront is left-to-right and it has the form: `name: type = value`. For many, reading from left to right is natural. In languages like C++, where you can have multiple modifiers to a type (like pointers or references), right-to-left reading can become confusing. Consider `int* a, b;`. In this C++ declaration, a is a pointer to an integer, but b is just an integer. This can lead to misconceptions.
+
+Declaring variables for all the fundamental types involves specifying the type followed by the variable name. Here's how you can declare variables for each of the fundamental types:
+
+1. **Integer Types:**
+
+| Type                       | Example in C++                               | New syntax in Cppfront                |
+|----------------------------|----------------------------------------------|---------------------------------------|
+| Signed integer[^1]         | `int myInt = 0;`                             | `myInt: int = 0;`                     |
+| Short integer              | `short myShort = 0;`                         | `myShort: short = 0;`                 |
+| Unsigned short integer     | `unsigned short myUnsignedShort = 0;`        | `myUnsignedShort: ushort = 0;`        |
+| Long integer               | `long myLong = 0;`                           | `myLong: long = 0;`                   |
+| Unsigned long integer      | `unsigned long myUnsignedLong = 0;`          | `myUnsignedLong: ulong = 0;`          |
+| Long long integer          | `long long myLongLong = 0;`                  | `myLongLong: ulonglong = 0;`          |
+| Unsigned long long integer | `unsigned long long myUnsignedLongLong = 0;` | `myUnsignedLongLong: longdouble = 0;` |
+
+[^1]: For unsigned int, Cppfron does not define any new alias.
+
+As already stated in the previous chapter, the use of primitive types is discouraged and you should prefere these options:
+
+| Type              | Example in C++                | New syntax in Cppfront         |
+|-------------------|-------------------------------|--------------------------------|
+| Signed 8 bits     | `std::int8_t myint8 = 0;`     | `myint8:  std::int8_t = 0;`    |
+| Signed 16 bits    | `std::int16_t myint16 = 0;`   | `myint16: std::int16_t = 0;`   |
+| Signed 32 bits    | `std::int32_t myint32 = 0;`   | `myint32: std::int32_t = 0;`   |
+| Signed 64 bits    | `std::int64_t myint64 = 0;`   | `myint64: std::int64_t = 0;`   |
+| Unsigned 8 bits   | `std::uint8_t myuint8 = 0;`   | `myuint8: std::uint8_t = 0;`   |
+| Unsigned 16 bits  | `std::uint16_t myuint16 = 0;` | `myuint16: std::uint16_t = 0;` |
+| Unsigned 32 bits  | `std::uint32_t myuint32 = 0;` | `myuint32: std::uint32_t = 0;` |
+| Unsigned 64 bits  | `std::uint64_t myuint64 = 0;` | `myuint64: std::uint64_t = 0;` |
+
+2. **Character Types:**
+
+| Type                  | Example in C++                      | New syntax in Cppfront        |
+|-----------------------|-------------------------------------|-------------------------------|
+| Character             | `char myChar = 'a';`                | `myChar: _schar = 'a';` or `myChar: char = 'a';` |
+| Signed character      | `signed char mySignedChar = 'a';`   | `mySignedChar: _schar = 'a';` |
+| Unsigned character    | `unsigned char myUnsignedChar = 0;` | `myUnsignedChar: _uchar = 0;` |
+| Wide character        | `wchar_t myWideChar = L'a';`        | `myWideChar: wchar_t = L'a';` |
+| Char16_t (for UTF-16) | `char16_t myChar16 = u'a';`         | `myChar16: char16_t = u'a';`  |
+| Char32_t (for UTF-32) | `char32_t myChar32 = U'a';`         | `myChar32: char32_t = U'a';`  |
+
+3. **Floating-Point Types:**
+
+| Type        | Example in C++                     | New syntax in Cppfront              |
+|-------------|------------------------------------|-------------------------------------|
+| Float       | `float myFloat = 0.0f;`            | `myFloat: float = 0.0;`             |
+| Double      | `double myDouble = 0.0;`           | `myDouble: double = 0.0;`           |
+| Long double | `long double myLongDouble = 0.0l;` | `myLongDouble: longdouble = 0.0l;` |
+
+4. **Boolean Type:**
+
+| Type    | Example in C++        | New syntax in Cppfront |
+|---------|-----------------------|------------------------|
+| Boolean | `bool myBool = true;` | `myBool: bool = true;` |
+
+You can see these declarations in the Compiler Explorer: https://godbolt.org/z/xebWhP9q8
+
+
+
 Gain clarity on the process of introducing variables into your Cppfront code. Learn the difference between defining a variable, which allocates storage, and declaring a variable, which introduces a name into the program. Understand the importance of initialization and explore the various ways to initialize variables in Cppfront, including pointers, `nullptr`, and `const` qualifiers. Dive into the significance of compile-time initialization with `constexpr` and `consteval`.
 
 	* pointer
@@ -16,7 +78,7 @@ Gain clarity on the process of introducing variables into your Cppfront code. Le
 	* const
 	* constexpr, consteval and constinit
 
-How it is done in C and C++ 98 and modern C++
+
 
 ### Declare left-to-right:
 

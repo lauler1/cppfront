@@ -1,0 +1,51 @@
+#include <chrono>
+#include <iostream>
+
+Benchmark: type =  {
+
+
+    operator=: (out this, in name: std::string) = { //Constructor
+		name_ = name;
+        start_ = std::chrono::high_resolution_clock::now();
+        std::cout << "Starting benchmark for: " << name_ << std::endl;
+	}
+
+    operator=: (move this) = { //Destructor
+        end: = std::chrono::high_resolution_clock::now();
+        elapsed: std::chrono::duration<double> = end - start_;
+        std::cout << "Benchmark '" << name_ << "' finished. Elapsed time: " << elapsed.count() << "s\n";
+    }
+
+    name_: std::string;
+    start_ : std::chrono::time_point<std::chrono::high_resolution_clock> ;
+}
+
+// Usage example
+void someFunctionToBenchmark() {
+    // Simulating some work
+    for (int i = 0; i < 100000; ++i) {
+        //std::cout << "."; 
+        }
+        std::cout << ".\n"; 
+}
+
+void doBenchmark(std::function<void(void)> bfunc){
+	auto a = Benchmark("Some Function Benchmark 2");
+	bfunc();
+}
+
+main: () -> int = {
+	//Option 1: Using a Benchmark Object and RAII to finish Benchmark
+    {
+        _:Benchmark=("Some Function Benchmark 1");
+        someFunctionToBenchmark();
+    } // The benchmark object goes out of scope here, ending the timing
+	
+	a:=123; // a variable to be captured by Lambda
+
+	//Option 2: Using a Lambda es the benchmark
+	doBenchmark(:() = {
+        std::cout << "This is test " << a$ << std::endl;
+    });
+    return 0;
+}

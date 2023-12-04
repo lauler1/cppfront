@@ -120,7 +120,7 @@ See also [variables](../basic_data_types/Variables.md).
 ### Order independence
 
 
-No forward declarations inCpp2 because we forward-declare everything in the Cpp1 code. Functions and objects can be declared in any order because Cppfront warrants the declaration, e.g.:
+No forward declarations in Cpp2 because we forward-declare everything in the Cpp1 code. Functions and objects can be declared in any order because Cppfront warrants the declaration, e.g.:
 
 Cppfront:
 ```c++
@@ -275,7 +275,7 @@ class T {
 ...
 ```
 
-See also [variables](../basic_data_types/Variables.md).
+See also [variables](../functions/Parameters.md).
 
 ### Basic types
 

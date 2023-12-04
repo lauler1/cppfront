@@ -36,6 +36,55 @@ f5: ( forward x: ) = {}
 
 See also [parameters](../functions/Parameters.md) of functions.
 
+### Non-local objects are `const` by default
+
+In Cpp2, a majority of objects adopt the `const` attribute by default. Specifically:
+
+- Parameters inherently assume a `const` nature. The default setting for parameters is `in`, which not only signifies `const` but also restricts any modifications to its state. If mutability is required, then the alternative is `inout`, which isn't set by default.
+- As a result, class member functions are inherently `const`. The reason lies in their implicit `this` parameter, which, like any other parameter, defaults to `in` and subsequently, `const`.
+- (To be implemented) I'm planning for non-local entities, such as global and static objects, to be automatically recognized as `constexpr`.
+
+Cppfront:
+```c++
+	T: type = {
+		func1: (_a:, _b:) -> bool = {return _a == _b;}
+	}
+
+	myfunc: (_a:, _b:) -> int = {
+		a = _a;
+		b = _b;
+	}
+```
+
+Results:
+
+C++:
+```c++
+...
+class T {
+    private: int a {1}; 
+    private: int b {2}; 
+    public: [[nodiscard]] static auto func1(auto const& _a, auto const& _b) const& -> bool;
+        
+    public: T() = default;
+    public: T(T const&) = delete; /* No 'that' constructor, suppress copy */
+    public: auto operator=(T const&) -> void = delete;
+};
+...
+    [[nodiscard]] auto T::func1(auto const& _a, auto const& _b) const& -> bool{
+        (*this).a = _a;
+        (*this).b = _b;
+        return a == b; 
+    }
+...
+	[[nodiscard]] auto myfunc(auto const& _a, auto const& _b) -> int{
+		a = _a;
+		b = _b;
+	}
+...
+```
+
+
 ### Move on Last Use
 
 One of the pivotal concepts ushered in with C++11 was move semantics. This feature allows for circumventing costly deep copy operations by substituting them with more economical move operations. In essence, move semantics enable the transformation of a **deep copy** into a **shallow copy**. In Cppfront, local variables are automatically subjected to a move on their final utilization.

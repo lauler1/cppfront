@@ -5,11 +5,9 @@ Back to Tutorial [home](../README.md)
 
 Back to the Chapter [Overview](basic_data_types/Overview.md)
 
-![Tutorial Under Construction](../TutorialUnderConstruction.png)
-
 ## Background C and C++
 
-In C++, variables are named storage locations in the computer's memory, used to store data that can be modified during program execution. Each variable in C++ is associated with a specific type, which determines the size and layout of the variable's memory, the range of values that can be stored within that memory, and the set of operations that can be applied to the variable (See the [previous Chapter](Basic_types.md)).
+Variables are named storage locations in the computer's memory, used to store data that can be modified during program execution. Each variable is associated with a specific type, which determines the size and layout of the variable's memory, the range of values that can be stored within that memory, and the set of operations that can be applied to the variable (See the [previous Chapter](Basic_types.md)).
 
 The new declaration syntax of Cppfront is left-to-right and it has the form: `name: type = value`. For many, reading from left to right is natural. In languages like C++, where you can have multiple modifiers to a type (like pointers or references), right-to-left reading can become confusing. Consider `int* a, b;`. In this C++ declaration, a is a pointer to an integer, but b is just an integer. This can lead to misconceptions.
 
@@ -24,8 +22,8 @@ Declaring variables for all the fundamental types involves specifying the type f
 | Unsigned short integer     | `unsigned short myUnsignedShort = 0;`        | `myUnsignedShort: ushort = 0;`        |
 | Long integer               | `long myLong = 0;`                           | `myLong: long = 0;`                   |
 | Unsigned long integer      | `unsigned long myUnsignedLong = 0;`          | `myUnsignedLong: ulong = 0;`          |
-| Long long integer          | `long long myLongLong = 0;`                  | `myLongLong: ulonglong = 0;`          |
-| Unsigned long long integer | `unsigned long long myUnsignedLongLong = 0;` | `myUnsignedLongLong: longdouble = 0;` |
+| Long long integer          | `long long myLongLong = 0;`                  | `myLongLong: longlong = 0;`           |
+| Unsigned long long integer | `unsigned long long myUnsignedLongLong = 0;` | `myUnsignedLongLong: ulonglong = 0;`  |
 
 [^1]: For unsigned int, Cppfron does not define any new alias.
 
@@ -67,113 +65,132 @@ As already stated in the previous chapter, the use of primitive types is discour
 |---------|-----------------------|------------------------|
 | Boolean | `bool myBool = true;` | `myBool: bool = true;` |
 
-You can see these declarations in the Compiler Explorer: https://godbolt.org/z/xebWhP9q8
+You can see these declarations in the Compiler Explorer: https://godbolt.org/z/aeqc4hcTx
 
-
-
-Gain clarity on the process of introducing variables into your Cppfront code. Learn the difference between defining a variable, which allocates storage, and declaring a variable, which introduces a name into the program. Understand the importance of initialization and explore the various ways to initialize variables in Cppfront, including pointers, `nullptr`, and `const` qualifiers. Dive into the significance of compile-time initialization with `constexpr` and `consteval`.
-
-	* pointer
-	* nullpter
-	* const
-	* constexpr, consteval and constinit
-
-
-
-### Declare left-to-right:
-
-I think this can be a controversial topic of the new syntax, specially to the ones used for a very long type with the r-to-l syntax. The new declaration syntax left-to-right has the form: `name: type = value`.
-
-For many, reading from left to right is natural. 
-In languages like C++, where you can have multiple modifiers to a type (like pointers or references), right-to-left reading can become confusing. Consider int* a, b; In this C++ declaration, a is a pointer to an integer, but b is just an integer. This can lead to misconceptions.
-
-C++:
-```C++
-class shape { /* syntax 1 code since 1980, can’t update semantics
-without backward compatibility breakage concerns */ };
-
-auto f(int i) -> string { /* syntax 1 code since C++11, can’t update semantics
-without backward compatibility breakage concerns */ }
-
-i32 a = 0;
-i32 *b = &a;
-
-int main(){
-	std:vector<std::string> vec{"hello", "2022"};
-	...
-}
-```
+In order to read or change the value of a variable is the same as in C++.
 
 Cppfront:
 ```c++
-shape: type = { /* syntax 2 code doesn’t exist today, can update
-semantics as desired without any breaking change */ }
-
-f: (i: int) -> string = { /* syntax 2 code doesn’t exist today, can update
-semantics as desired without any breaking change */ }
-
-a: int = 0;
-b: *int = a&;
-
 main: () -> int = {
-	vec: std:vector<std::string> = ("hello", "2022");
-	...
+	myVar: int = 10;
+	otherVar: int = myVar;
+
+    // Use myconst before declaration
+    std::cout << "1) myVar = " << myVar << "\n";        // 10
+    std::cout << "1) otherVar = " << otherVar << "\n";  // 10
+
+	myVar = 30;
+	otherVar = otherVar + 100;
+	
+    std::cout << "2) myVar = " << myVar << "\n";        // 30
+    std::cout << "2) otherVar = " << otherVar << "\n";  // 110
+
+    return 0;
 }
 ```
 
-### Order independence
+## Attributes
 
 
-No forward declarations inCpp2 because we forward-declare everything in the Cpp1 code. Functions and objects can be declared in any order because Cppfront warrants the declaration, e.g.:
+In C++, attributes are qualifiers that can be applied to variables (as well as to functions and types) to modify their behavior or enforce certain properties. The attributes `const`, `constexpr`, `consteval`, and `constinit` are particularly important in modern C++ programming. Cppfront implements some of the C++ attributes. Here's a brief overview of each:
+
+1. **`const`:**
+   - The `const` attribute indicates that the value of the variable cannot be modified after initialization. It's a promise that the variable remains constant through its lifetime, which can help in optimization and ensuring program correctness.
+   - Example C++: `const int myConst = 10;` means that `myConst` cannot be changed after initialization.
+   - Example Cppfront: `myConst: const int = 0;` means that `myConst` cannot be changed after initialization.
+
+2. **`constexpr`:**
+   - A `constexpr` variable indicates that its value can be computed at compile time. This is useful for optimization, as it can eliminate runtime computation for values that can be determined when the program is compiled. In Cppfront, you achieve this result by defineing a variable with `==` operator.
+   - Example C++: `constexpr int myConstExpr = 2 + 3;` allows the compiler to compute the value of `myConstExpr` during compilation.
+   - Example Cppfront: `myConstExpr: int == 2 + 3;` allows the compiler to compute the value of `myConstExpr` during compilation.
+
+3. **`consteval`:**
+   - The `consteval` specifier, introduced in C++20, ensures that a function is an immediate function, meaning it must produce a compile-time constant when called with constant expressions. This is stricter than `constexpr`, as `consteval` functions cannot be called at runtime.
+   - Example C++: `consteval int square(int n) { return n * n; }` ensures that `square` can only be used in constant expressions.
+   - Example Cppfront: **Not yet available.**
+
+4. **`constinit`:**
+   - Introduced in C++20, `constinit` ensures that the variable is initialized with a constant expression before any dynamic initialization takes place. It's a middle ground between `constexpr` and non-constant initialization, ensuring that the variable gets constant initialization but can be changed later.
+   - Example C++: `constinit int myConstInit = someConstexprFunction();` ensures `myConstInit` is initialized during the static initialization phase.
+   - Example Cppfront: **Not yet available.**
+
+These attributes play crucial roles in modern C++ and Cppfront by providing more control over how and when variables are initialized and modified, and by enforcing compile-time computation which can lead to more efficient and reliable code.
+
+
+## Pointers
+
+A pointer is a variable that stores the memory address of another variable. Pointers are used for various purposes, such as dynamic memory allocation, arrays, and implementing data structures like linked lists and trees. A pointer in C++ is declared by specifying the type of data it points to, followed by an asterisk (`*`). In Cppfront a pointer is declared by an asterisk (`*`) followed byt the specification of the type of data it points to,
+
+- **C++**
+ - **Declaration:** For example, `int* myPointer;` declares a pointer that can hold the address of an `int` variable.
+ - **Usage:** After declaring a pointer, you can assign it the address of a variable using the address-of operator (`&`). For example, `int myVar = 10; myPointer = &myVar;`.
+ - **Dereferencing:** You can access the value at the memory address the pointer points to using the dereference operator (`*`). For example, `int value = *myPointer;` retrieves the value of `myVar` through the pointer.
+
+- **Cppfront**
+ - **Declaration:** For example, `myPointer: *int;` declares a pointer that can hold the address of an `int` variable. Note that the asterisk (`*`) comes before the type.
+ - **Usage:** The assignment of the address of a variable is also with address-of operator (`&`), but after the variable where the address is to be taken. For example, `myVar: int = 10; myPointer = myVar&;`. By default Cppfront use right side operators.
+ - **Dereferencing:** You can also access the value at the memory address the pointer points to using the dereference operator (`*`), but at the right side of the variable as well. For example, `value: int  = myPointer*;` retrieves the value of `myVar` through the pointer. By default Cppfront use right side operators.
+
+See an example in Compiler Explorer: https://godbolt.org/z/fKr4Y5bo4
+
+### `nullptr`
+
+`nullptr` is a keyword introduced in C++11 as a more type-safe replacement for the old `NULL` macro used in C and older C++ code. It represents a null pointer, which is a pointer that points to nothing. Using `nullptr` in C++ helps prevent some errors and misunderstandings that can arise from the older `NULL` macro, which is simply defined as `0`. However `nullptr` is not considered safe (lifetime safety guarantee) and Cppfront does not allow to initialize a variable to it. You can leave it uninitialized and then set it to a non-null value when you have one (See also section: All variables must be initialized).
+
+## Order independence
+
+No forward declarations in Cppfront because we forward-declare everything in the C++ code. Functions and objects can be declared in any order because Cppfront warrants the declaration, e.g.:
 
 Cppfront:
 ```c++
-main: () = {
-    myType := MyType();
-	println(myType.myX);
+main: () -> int = {
+    // Use myconst before declaration
+    std::cout << "print " << myconst << "\n";
+    return 0;
 }
 
-MyType: type = {
-	public myX: std::string = "myX\n";
-}
-
-println: (myvar:) = { std::cout << myvar;}
+myconst: const int = 123;
 ```
 
-### wildcard `_`
+This will be transpiled to C++ as:
 
-There are two uses for wildcard `_`.
-- deduced type wildcard
-- “don’t care” wildcard
-
-
-#### deduced type wildcard
-
-Since C++11, the `auto` keyword has been introduced to deduce the type from the initializer. In Cppfront, you can use `_` in place of the C++ `auto` keyword. See the example for clarification.
-
-Cppfront:
 ```c++
-test: (d: _) = {
-	a: int = 0;
-	b: _ = a;
+...
+
+[[nodiscard]] auto main() -> int;
+
+extern int const myconst;
+
+[[nodiscard]] auto main() -> int{
+    // Use myconst before declaration
+    std::cout << "print " << myconst << "\n";
+    return 0; 
 }
+
+int const myconst {123}; 
 ```
 
-However, in Cppfront, you don't even need the `_` as the type can be inferred from the initialization. Refer to the example below for more details.
+Note the automatic inclusion of `extern int const myconst;` by Cppfront in the generated C++ code.
 
-Cppfront:
-```c++
-test: (d:) = {
-	a: = 0;
-	b: = a;
-}
+## All variables must be initialized:
+
+All variables in Cppfront must be initialized; failing to do so will result in a compiler error.
+
+`a: int = 0;` is ok.
+
+`a: int;`, unless in a type definition, it will fail with comment:
+
+```
+variable must be initialized on every branch path
+ ==> program violates initialization safety guarantee - see previous errors
 ```
 
-However, deduced type is only allowed for local variables (e.g., inside functions) or within classes. It is not allowed for global variables or variables declared at the namespace scope.
+As explained in section `nullptr`, it is not allowed to initialize a pointer with `nullptr` in Cppfront.
+There are some discussion how shall be raw-pointers handled. See: [cppfront issues 192](https://github.com/hsutter/cppfront/issues/192) and  [cppfront discussions 646](https://github.com/hsutter/cppfront/discussions/646).
 
-See also [variables](../basic_data_types/Variables.md).
+See also [introduction](../pointers_and_references/Introduction.md) to pointers.
 
-#### “don’t care” wildcard
+## “don’t care” wildcard
 
 When there's a need to consciously overlook a result, one can use the "intentional disregard" wildcard. It's understated yet unmistakably deliberate:
 
@@ -208,96 +225,6 @@ main: () = {
 
 Adding `_ = myvar`; afterward naturally makes that the last use of `myvar` instead. Problem solved, and it self-documents that the code really meant to ignore a function’s output value.
 
-See also [variables](../basic_data_types/Variables.md).
-
-### All variables must be initialized:
-
-All variables in Cppfront must be initialized; failing to do so will result in a compiler error.
-
-`a: int = 0;` is ok.
-
-`a: int;`, unless in a type definition, it will fail with comment:
-
-```
-variable must be initialized on every branch path
- ==> program violates initialization safety guarantee - see previous errors
-```
-It is not allowed to initialize a pointer with `nullptr`.
-There are some discussion how shall be raw-pointers handled. See: [cppfront issues 192](https://github.com/hsutter/cppfront/issues/192) and  [cppfront discussions 646](https://github.com/hsutter/cppfront/discussions/646).
-
-See also [variables](../basic_data_types/Variables.md).
-
-See also [introduction](../pointers_and_references/Introduction.md) to pointers.
-
-### Non-local objects are `const` by default
-
-In Cpp2, a majority of objects adopt the `const` attribute by default. Specifically:
-
-- Parameters inherently assume a `const` nature. The default setting for parameters is `in`, which not only signifies `const` but also restricts any modifications to its state. If mutability is required, then the alternative is `inout`, which isn't set by default.
-- As a result, class member functions are inherently `const`. The reason lies in their implicit `this` parameter, which, like any other parameter, defaults to `in` and subsequently, `const`.
-- (To be implemented) I'm planning for non-local entities, such as global and static objects, to be automatically recognized as `constexpr`.
-
-Cppfront:
-```c++
-	T: type = {
-		func1: (_a:, _b:) -> bool = {return _a == _b;}
-	}
-
-	myfunc: (_a:, _b:) -> int = {
-		a = _a;
-		b = _b;
-	}
-```
-
-Results:
-
-C++:
-```c++
-...
-class T {
-    private: int a {1}; 
-    private: int b {2}; 
-    public: [[nodiscard]] static auto func1(auto const& _a, auto const& _b) const& -> bool;
-        
-    public: T() = default;
-    public: T(T const&) = delete; /* No 'that' constructor, suppress copy */
-    public: auto operator=(T const&) -> void = delete;
-};
-...
-    [[nodiscard]] auto T::func1(auto const& _a, auto const& _b) const& -> bool{
-        (*this).a = _a;
-        (*this).b = _b;
-        return a == b; 
-    }
-...
-	[[nodiscard]] auto myfunc(auto const& _a, auto const& _b) -> int{
-		a = _a;
-		b = _b;
-	}
-...
-```
-
-
-
-## TODO
-
-Declare left-to-right:
-
-Order independence
-
-deduced type wildcard
-
-“don’t care” wildcard
-
-All variables must be initialized
-
-Non-local objects are `const` by default
-
-pointer and nullpter
-
-const, constexpr, consteval and constinit
-
-
 ## Next
 
 To the [next Chapter](Operators.md).
@@ -307,4 +234,3 @@ To the [previous Chapter](Basic_types.md).
 Back to Tutorial [home](../README.md)
 
 Back to the Chapter [Overview](Overview.md)
-
